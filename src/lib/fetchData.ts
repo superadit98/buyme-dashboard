@@ -58,6 +58,7 @@ export async function getOrders(): Promise<Order[]> {
     ...o,
     items: Number(o.items) || 0,
     total: Number(o.total) || 0,
+    channel: o.channel || "Shopee",
   }));
 }
 
@@ -69,6 +70,7 @@ export async function getShipments(): Promise<Shipment[]> {
     ...s,
     weight: Number(s.weight) || 0,
     cost: Number(s.cost) || 0,
+    destination: s.destination || "",
   }));
 }
 

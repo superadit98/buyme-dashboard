@@ -18,9 +18,17 @@ const STATUS_OPTIONS: OrderStatus[] = [
   "Cancelled",
 ];
 
+const CHANNEL_COLORS: Record<string, string> = {
+  "Shopee": "bg-orange-500/10 text-orange-400",
+  "Tokopedia": "bg-green-500/10 text-green-400",
+  "TikTok Shop": "bg-pink-500/10 text-pink-400",
+  "Website": "bg-blue-500/10 text-blue-400",
+};
+
 export default function OrdersTable({ orders }: OrdersTableProps) {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<OrderStatus | "All">("All");
+  const [channelFilter, setChannelFilter] = useState<string>("All");
 
   const filtered = useMemo(() => {
     return orders.filter((o) => {
@@ -33,9 +41,12 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
       const matchStatus =
         statusFilter === "All" || o.status === statusFilter;
 
-      return matchSearch && matchStatus;
+      const matchChannel =
+        channelFilter === "All" || o.channel === channelFilter;
+
+      return matchSearch && matchStatus && matchChannel;
     });
-  }, [orders, search, statusFilter]);
+  }, [orders, search, statusFilter, channelFilter]);
 
   return (
     <div className="rounded-xl border border-[#262636] bg-[#16161f] shadow-sm">
@@ -46,20 +57,34 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
           onChange={setSearch}
           placeholder="Cari nama pelanggan, ID, atau alamat..."
         />
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-500">Status:</span>
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value as OrderStatus | "All")}
-            className="rounded-lg border border-[#262636] bg-[#111118] px-3 py-1.5 text-sm text-gray-300 focus:border-blue-500 focus:outline-none"
-          >
-            <option value="All">Semua</option>
-            {STATUS_OPTIONS.map((s) => (
-              <option key={s} value={s}>
-                {s}
-              </option>
-            ))}
-          </select>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-gray-500">Status:</span>
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value as OrderStatus | "All")}
+              className="rounded-lg border border-[#262636] bg-[#111118] px-3 py-1.5 text-sm text-gray-300 focus:border-blue-500 focus:outline-none"
+            >
+              <option value="All">Semua</option>
+              {STATUS_OPTIONS.map((s) => (
+                <option key={s} value={s}>{s}</option>
+              ))}
+            </select>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-gray-500">Channel:</span>
+            <select
+              value={channelFilter}
+              onChange={(e) => setChannelFilter(e.target.value)}
+              className="rounded-lg border border-[#262636] bg-[#111118] px-3 py-1.5 text-sm text-gray-300 focus:border-blue-500 focus:outline-none"
+            >
+              <option value="All">Semua</option>
+              <option value="Shopee">Shopee</option>
+              <option value="Tokopedia">Tokopedia</option>
+              <option value="TikTok Shop">TikTok Shop</option>
+              <option value="Website">Website</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -73,7 +98,7 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
               <th className="px-4 py-3 font-medium text-gray-400">Tanggal</th>
               <th className="px-4 py-3 text-center font-medium text-gray-400">Item</th>
               <th className="px-4 py-3 text-right font-medium text-gray-400">Total</th>
-              <th className="px-4 py-3 font-medium text-gray-400">Pembayaran</th>
+              <th className="px-4 py-3 font-medium text-gray-400">Channel</th>
               <th className="px-4 py-3 font-medium text-gray-400">Status</th>
               <th className="px-4 py-3 font-medium text-gray-400">Alamat</th>
             </tr>
@@ -101,8 +126,12 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
                 <td className="whitespace-nowrap px-4 py-3 text-right font-semibold text-gray-100">
                   {formatRupiah(order.total)}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-gray-400">
-                  {order.paymentMethod}
+                <td className="whitespace-nowrap px-4 py-3">
+                  <span className={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium ${
+                    CHANNEL_COLORS[order.channel] || "bg-gray-500/10 text-gray-400"
+                  }`}>
+                    {order.channel}
+                  </span>
                 </td>
                 <td className="whitespace-nowrap px-4 py-3">
                   <StatusBadge status={order.status} />

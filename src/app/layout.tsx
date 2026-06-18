@@ -9,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "BuyMe Dashboard — E-Commerce Supply Chain",
-  description: "Dashboard monitoring supply chain untuk bisnis e-commerce BuyMe. Data real-time dari Google Sheets.",
+  title: "BuyMe — Omnichannel Supply Chain Dashboard",
+  description: "Dashboard omnichannel supply chain untuk bisnis e-commerce BuyMe. Monitoring inventory, order fulfillment, delivery, dan sales dari berbagai channel penjualan.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

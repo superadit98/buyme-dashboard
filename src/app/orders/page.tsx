@@ -1,13 +1,13 @@
 /**
  * ============================================
- * ORDERS PAGE — Manajemen Pesanan
+ * ORDERS PAGE — Order Fulfillment Monitoring
  * ============================================
  * 
- * Tabel pesanan dengan:
+ * Menampilkan:
+ * - Status pesanan: Pending, Packed, Shipped, Delivered
+ * - Channel penjualan (Shopee, Tokopedia, TikTok Shop, Website)
  * - Search by customer name or order ID
- * - Status badge berwarna
  * - Filter by status
- * - Total amount formatting
  */
 
 import { getOrders, formatRupiah } from "@/lib/fetchData";
@@ -22,7 +22,7 @@ export default async function OrdersPage() {
   const stats = {
     total: orders.length,
     pending: orders.filter((o) => o.status === "Pending").length,
-    processing: orders.filter((o) => o.status === "Packed").length,
+    packed: orders.filter((o) => o.status === "Packed").length,
     shipped: orders.filter((o) => o.status === "Shipped").length,
     delivered: orders.filter((o) => o.status === "Delivered").length,
     cancelled: orders.filter((o) => o.status === "Cancelled").length,
@@ -34,9 +34,9 @@ export default async function OrdersPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-100">Orders</h1>
+        <h1 className="text-2xl font-bold text-gray-100">Order Fulfillment</h1>
         <p className="text-sm text-gray-400">
-          Daftar pesanan masuk dari pelanggan
+          Pemantauan status pesanan dari seluruh channel penjualan
         </p>
       </div>
 
@@ -44,7 +44,7 @@ export default async function OrdersPage() {
       <div className="flex flex-wrap gap-3">
         <StatusPill label="Total" count={stats.total} color="bg-gray-50/10 text-gray-400" />
         <StatusPill label="Pending" count={stats.pending} color="bg-amber-50/10 text-amber-400" />
-        <StatusPill label="Packed" count={stats.processing} color="bg-blue-50/10 text-blue-400" />
+        <StatusPill label="Packed" count={stats.packed} color="bg-blue-50/10 text-blue-400" />
         <StatusPill label="Shipped" count={stats.shipped} color="bg-indigo-50/10 text-indigo-400" />
         <StatusPill label="Delivered" count={stats.delivered} color="bg-green-50/10 text-green-400" />
         <StatusPill label="Cancelled" count={stats.cancelled} color="bg-red-50/10 text-red-400" />

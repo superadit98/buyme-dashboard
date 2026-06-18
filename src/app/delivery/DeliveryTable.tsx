@@ -18,6 +18,7 @@ interface EnrichedShipment {
   cost: number;
   customerName: string;
   orderTotal: number;
+  destination: string;
 }
 
 interface DeliveryTableProps {
@@ -36,7 +37,8 @@ export default function DeliveryTable({ shipments }: DeliveryTableProps) {
         !search ||
         s.orderId.toLowerCase().includes(search.toLowerCase()) ||
         s.trackingNumber.toLowerCase().includes(search.toLowerCase()) ||
-        s.customerName.toLowerCase().includes(search.toLowerCase());
+        s.customerName.toLowerCase().includes(search.toLowerCase()) ||
+        (s.destination && s.destination.toLowerCase().includes(search.toLowerCase()));
 
       const matchCarrier =
         carrierFilter === "All" || s.carrier === carrierFilter;
@@ -60,7 +62,7 @@ export default function DeliveryTable({ shipments }: DeliveryTableProps) {
         <SearchFilter
           value={search}
           onChange={setSearch}
-          placeholder="Cari Order ID, tracking, atau nama..."
+          placeholder="Cari Order ID, tracking, nama, atau kota..."
         />
         <div className="flex items-center gap-2">
           <span className="text-sm text-gray-500">Ekspedisi:</span>
@@ -87,6 +89,7 @@ export default function DeliveryTable({ shipments }: DeliveryTableProps) {
               <th className="px-4 py-3 font-medium text-gray-400">Pelanggan</th>
               <th className="px-4 py-3 font-medium text-gray-400">Ekspedisi</th>
               <th className="px-4 py-3 font-medium text-gray-400">No. Resi</th>
+              <th className="px-4 py-3 font-medium text-gray-400">Tujuan</th>
               <th className="px-4 py-3 font-medium text-gray-400">Kirim</th>
               <th className="px-4 py-3 font-medium text-gray-400">Estimasi</th>
               <th className="px-4 py-3 text-right font-medium text-gray-400">Ongkir</th>
@@ -112,6 +115,9 @@ export default function DeliveryTable({ shipments }: DeliveryTableProps) {
                 </td>
                 <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-gray-400">
                   {s.trackingNumber}
+                </td>
+                <td className="whitespace-nowrap px-4 py-3 text-gray-400">
+                  {s.destination || "-"}
                 </td>
                 <td className="whitespace-nowrap px-4 py-3 text-gray-400">
                   {formatDate(s.shipDate)}

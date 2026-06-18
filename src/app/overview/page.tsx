@@ -3,17 +3,19 @@
  * OVERVIEW PAGE — Dashboard Utama
  * ============================================
  * 
- * Menampilkan:
- * - KPI Cards: Total Orders, Total Products Sold, Low Stock, On-time Delivery %
- * - Top Selling Products (by category)
- * - Revenue chart (Recharts)
- * - Order status distribution
- * - Category breakdown
+ * KPI sesuai proposal:
+ * - Total Orders
+ * - Total Sales (Revenue)
+ * - Low Stock Products
+ * - Fulfillment Rate (% pesanan selesai)
+ * - On-time Delivery Rate
+ * - Top Selling Product
+ * - Sales Growth
  */
 
 import { getProducts, getOrders, getShipments, getSales, formatRupiah, formatNumber } from "@/lib/fetchData";
 import KPICard from "@/components/KPICard";
-import { ShoppingCart, Package, AlertTriangle, Truck, TrendingUp } from "lucide-react";
+import { ShoppingCart, DollarSign, AlertTriangle, Truck, CheckCircle, TrendingUp, Award } from "lucide-react";
 import OverviewCharts from "./OverviewCharts";
 
 // Force dynamic — data dari CSV berubah terus
@@ -21,7 +23,6 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function OverviewPage() {
-  // Fetch semua data dari Google Sheets CSV
   const [products, orders, shipments, sales] = await Promise.all([
     getProducts(),
     getOrders(),
@@ -31,10 +32,19 @@ export default async function OverviewPage() {
 
   // === Hitung KPI ===
   const totalOrders = orders.length;
-  const totalProductsSold = orders
-    .filter((o) => o.status !== "Cancelled")
-    .reduce((sum, o) => sum + o.items, 0);
+  const totalRevenue = sales.reduce((sum, s) => sum + s.revenue, 0);
+  const totalProfit = sales.reduce((sum, s) => sum + s.profit, 0);
   const lowStockItems = products.filter((p) => p.stock <= p.minStock).length;
+
+  // Fulfillment Rate: % pesanan yang sudah Delivered / Shipped (selesai diproses)
+  const completedOrders = orders.filter(
+    (o) => o.status === "Delivered" || o.status === "Shipped"
+  ).length;
+  const fulfillmentRate = totalOrders > 0
+    ? Math.round((completedOrders / totalOrders) * 100)
+    : 0;
+
+  // On-time Delivery
   const deliveredShipments = shipments.filter((s) => s.status === "Delivered");
   const onTimeDeliveries = deliveredShipments.filter((s) => {
     if (!s.actualDelivery || !s.estimatedDelivery) return false;
@@ -45,26 +55,30 @@ export default async function OverviewPage() {
       ? Math.round((onTimeDeliveries / deliveredShipments.length) * 100)
       : 0;
 
-  // === Top Selling Products (by category) ===
-  const categoryAgg = sales.reduce<Record<string, { quantity: number; revenue: number }>>(
+  // Top Selling Product (by total quantity sold across all sales)
+  const productSales = sales.reduce<Record<string, { name: string; quantity: number; revenue: number }>>(
     (acc, s) => {
-      if (!acc[s.productCategory]) acc[s.productCategory] = { quantity: 0, revenue: 0 };
+      if (!acc[s.productCategory]) acc[s.productCategory] = { name: s.productCategory, quantity: 0, revenue: 0 };
       acc[s.productCategory].quantity += s.quantity;
       acc[s.productCategory].revenue += s.revenue;
       return acc;
     },
     {}
   );
-  const topProducts = Object.entries(categoryAgg)
-    .map(([name, data]) => ({
-      name,
-      quantity: data.quantity,
-      revenue: data.revenue,
-    }))
-    .sort((a, b) => b.quantity - a.quantity)
-    .slice(0, 5);
+  const topSelling = Object.values(productSales)
+    .sort((a, b) => b.quantity - a.quantity)[0];
 
-  // === Data untuk charts ===
+  // Sales Growth (perbandingan 2 periode — misal minggu ini vs minggu lalu)
+  const sortedDates = [...new Set(sales.map((s) => s.date))].sort();
+  const midPoint = Math.floor(sortedDates.length / 2);
+  const firstHalf = sales.filter((s) => sortedDates.indexOf(s.date) < midPoint);
+  const secondHalf = sales.filter((s) => sortedDates.indexOf(s.date) >= midPoint);
+  const firstHalfRevenue = firstHalf.reduce((sum, s) => sum + s.revenue, 0);
+  const secondHalfRevenue = secondHalf.reduce((sum, s) => sum + s.revenue, 0);
+  const salesGrowth = firstHalfRevenue > 0
+    ? Math.round(((secondHalfRevenue - firstHalfRevenue) / firstHalfRevenue) * 100)
+    : 0;
+
   // Revenue per hari
   const revenueByDate = sales.reduce<Record<string, { revenue: number; profit: number }>>(
     (acc, s) => {
@@ -102,43 +116,50 @@ export default async function OverviewPage() {
     .map(([name, revenue]) => ({ name, revenue }))
     .sort((a, b) => b.revenue - a.revenue);
 
-  // Total revenue & profit
-  const totalRevenue = sales.reduce((sum, s) => sum + s.revenue, 0);
-  const totalProfit = sales.reduce((sum, s) => sum + s.profit, 0);
-
   return (
     <div className="space-y-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-100">Overview</h1>
+        <h1 className="text-2xl font-bold text-gray-100">Dashboard Overview</h1>
         <p className="text-sm text-gray-400">
-          Ringkasan data supply chain e-commerce
+          Ringkasan kondisi operasional BuyMe secara keseluruhan
         </p>
       </div>
 
-      {/* KPI Cards */}
+      {/* KPI Cards — sesuai proposal */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <KPICard
           title="Total Orders"
           value={formatNumber(totalOrders)}
-          subtitle={`${orders.filter((o) => o.status === "Pending" || o.status === "Packed").length} perlu diproses`}
+          subtitle={`${orders.filter((o) => o.status === "Pending").length} perlu diproses`}
           icon={ShoppingCart}
           color="blue"
         />
         <KPICard
-          title="Total Products Sold"
-          value={formatNumber(totalProductsSold)}
-          subtitle={`${formatRupiah(totalRevenue)} total revenue`}
-          icon={Package}
+          title="Total Sales"
+          value={formatRupiah(totalRevenue)}
+          subtitle={`Profit: ${formatRupiah(totalProfit)}`}
+          icon={DollarSign}
           color="green"
         />
         <KPICard
-          title="Low Stock Items"
+          title="Low Stock Products"
           value={lowStockItems}
           subtitle={`${products.filter((p) => p.stock === 0).length} out of stock`}
           icon={AlertTriangle}
           color={lowStockItems > 5 ? "red" : "amber"}
         />
+        <KPICard
+          title="Fulfillment Rate"
+          value={`${fulfillmentRate}%`}
+          subtitle={`${completedOrders}/${totalOrders} pesanan selesai`}
+          icon={CheckCircle}
+          color={fulfillmentRate >= 80 ? "green" : "amber"}
+        />
+      </div>
+
+      {/* Second row KPI */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <KPICard
           title="On-time Delivery"
           value={`${onTimePercent}%`}
@@ -146,40 +167,20 @@ export default async function OverviewPage() {
           icon={Truck}
           color={onTimePercent >= 90 ? "green" : onTimePercent >= 70 ? "amber" : "red"}
         />
-      </div>
-
-      {/* Top Selling Products */}
-      <div className="rounded-xl border border-[#262636] bg-[#16161f] p-6">
-        <div className="mb-4 flex items-center gap-2">
-          <TrendingUp className="h-5 w-5 text-emerald-400" />
-          <h2 className="text-lg font-semibold text-gray-100">Top Selling Products</h2>
-        </div>
-        <div className="space-y-3">
-          {topProducts.map((item, index) => (
-            <div
-              key={item.name}
-              className="flex items-center justify-between rounded-lg border border-[#262636] bg-[#1c1c28] px-4 py-3"
-            >
-              <div className="flex items-center gap-3">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/20 text-sm font-bold text-emerald-400">
-                  {index + 1}
-                </span>
-                <span className="font-medium text-gray-100">{item.name}</span>
-              </div>
-              <div className="flex items-center gap-4 text-sm">
-                <span className="text-gray-400">
-                  {item.quantity} terjual
-                </span>
-                <span className="font-medium text-gray-100">
-                  {formatRupiah(item.revenue)}
-                </span>
-              </div>
-            </div>
-          ))}
-          {topProducts.length === 0 && (
-            <p className="text-center text-gray-500">Belum ada data penjualan</p>
-          )}
-        </div>
+        <KPICard
+          title="Top Selling Product"
+          value={topSelling ? topSelling.name : "-"}
+          subtitle={topSelling ? `${topSelling.quantity} terjual` : "Belum ada data"}
+          icon={Award}
+          color="blue"
+        />
+        <KPICard
+          title="Sales Growth"
+          value={`${salesGrowth >= 0 ? "+" : ""}${salesGrowth}%`}
+          subtitle={salesGrowth >= 0 ? "Minggu ini vs lalu" : "Minggu ini vs lalu"}
+          icon={TrendingUp}
+          color={salesGrowth >= 0 ? "green" : "red"}
+        />
       </div>
 
       {/* Charts */}

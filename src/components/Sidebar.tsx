@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
+  Store,
   Package,
   ShoppingCart,
   Truck,
@@ -14,11 +15,12 @@ import {
 import { useState } from "react";
 
 const NAV_ITEMS = [
-  { href: "/overview", label: "Overview", icon: LayoutDashboard },
+  { href: "/overview", label: "Dashboard Overview", icon: LayoutDashboard },
+  { href: "/omnichannel", label: "Omnichannel", icon: Store },
   { href: "/inventory", label: "Inventory", icon: Package },
-  { href: "/orders", label: "Orders", icon: ShoppingCart },
+  { href: "/orders", label: "Order Fulfillment", icon: ShoppingCart },
   { href: "/delivery", label: "Delivery", icon: Truck },
-  { href: "/sales", label: "Sales", icon: TrendingUp },
+  { href: "/sales", label: "Sales Analytics", icon: TrendingUp },
 ] as const;
 
 export default function Sidebar() {
@@ -67,7 +69,7 @@ export default function Sidebar() {
           </div>
           <div>
             <h1 className="text-sm font-bold text-gray-100">BuyMe</h1>
-            <p className="text-xs text-gray-500">E-Commerce Dashboard</p>
+            <p className="text-xs text-gray-500">Omnichannel Dashboard</p>
           </div>
         </div>
 

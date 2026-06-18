@@ -1,13 +1,13 @@
 /**
  * ============================================
- * SALES PAGE — Analisis Penjualan
+ * SALES PAGE — Sales Analytics
  * ============================================
  * 
- * Tabel penjualan dengan:
- * - Revenue & profit per transaksi
- * - Channel breakdown (Shopee, Tokopedia, WhatsApp, Toko Online)
- * - Kategori analysis
- * - Recharts visualization
+ * Sesuai proposal:
+ * - Tren penjualan
+ * - Produk terlaris
+ * - Kategori produk terlaris
+ * - Performa penjualan berdasarkan channel
  */
 
 import { getSales, formatRupiah } from "@/lib/fetchData";
@@ -55,12 +55,30 @@ export default async function SalesPage() {
     .map(([name, data]) => ({ name, ...data }))
     .sort((a, b) => b.revenue - a.revenue);
 
+  // Sales trend (revenue per date)
+  const trendByDate = sales.reduce<Record<string, { revenue: number; profit: number }>>(
+    (acc, s) => {
+      if (!acc[s.date]) acc[s.date] = { revenue: 0, profit: 0 };
+      acc[s.date].revenue += s.revenue;
+      acc[s.date].profit += s.profit;
+      return acc;
+    },
+    {}
+  );
+  const salesTrend = Object.entries(trendByDate)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([date, data]) => ({
+      date: new Date(date).toLocaleDateString("id-ID", { day: "numeric", month: "short" }),
+      revenue: data.revenue,
+      profit: data.profit,
+    }));
+
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-100">Sales</h1>
+        <h1 className="text-2xl font-bold text-gray-100">Sales Analytics</h1>
         <p className="text-sm text-gray-400">
-          Analisis penjualan dan profitabilitas
+          Analisis penjualan, tren, dan performa per channel & kategori
         </p>
       </div>
 
@@ -96,6 +114,7 @@ export default async function SalesPage() {
       <SalesCharts
         channelData={channelChartData}
         categoryData={categoryChartData}
+        salesTrend={salesTrend}
       />
 
       {/* Sales Table */}

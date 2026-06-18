@@ -42,6 +42,7 @@ export interface Order {
   address: string;
   paymentMethod: string;
   notes: string;
+  channel: SalesChannel; // Channel penjualan (Shopee, Tokopedia, TikTok Shop, Website)
 }
 
 export type OrderStatus =
@@ -50,6 +51,12 @@ export type OrderStatus =
   | "Shipped"
   | "Delivered"
   | "Cancelled";
+
+export type SalesChannel =
+  | "Shopee"
+  | "Tokopedia"
+  | "TikTok Shop"
+  | "Website";
 
 export interface Shipment {
   id: string;
@@ -62,6 +69,7 @@ export interface Shipment {
   status: ShipmentStatus;
   weight: number;        // Berat dalam kg
   cost: number;          // Ongkir (Rp)
+  destination: string;   // Kota tujuan
 }
 
 export type ShipmentStatus =
@@ -81,7 +89,7 @@ export interface Sale {
   revenue: number;       // Pendapatan kotor (Rp)
   cost: number;          // Modal (Rp)
   profit: number;        // Profit = revenue - cost (Rp)
-  channel: string;       // Marketplace / Website / WhatsApp
+  channel: SalesChannel; // Marketplace / Website
 }
 
 export interface DashboardConfig {
