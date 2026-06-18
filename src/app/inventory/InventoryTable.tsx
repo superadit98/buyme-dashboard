@@ -53,9 +53,9 @@ export default function InventoryTable({ products }: InventoryTableProps) {
   }, [products, search, showLowStock]);
 
   return (
-    <div className="rounded-xl border border-[#262636] bg-[#16161f] shadow-sm">
+    <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-sm">
       {/* Toolbar */}
-      <div className="flex flex-col gap-3 border-b border-[#262636] p-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 border-b border-[var(--border)] p-4 sm:flex-row sm:items-center sm:justify-between">
         <SearchFilter
           value={search}
           onChange={setSearch}
@@ -68,7 +68,7 @@ export default function InventoryTable({ products }: InventoryTableProps) {
             onChange={(e) => setShowLowStock(e.target.checked)}
             className="h-4 w-4 rounded border-gray-600 text-amber-600 focus:ring-amber-500"
           />
-          <span className="text-gray-400">Tampilkan stok menipis saja</span>
+          <span className="text-[var(--text-secondary)]">Tampilkan stok menipis saja</span>
         </label>
       </div>
 
@@ -76,30 +76,30 @@ export default function InventoryTable({ products }: InventoryTableProps) {
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm">
           <thead>
-            <tr className="border-b border-[#262636] bg-[#111118]">
-              <th className="px-4 py-3 font-medium text-gray-400">SKU</th>
-              <th className="px-4 py-3 font-medium text-gray-400">Nama Produk</th>
-              <th className="px-4 py-3 font-medium text-gray-400">Kategori</th>
-              <th className="px-4 py-3 text-right font-medium text-gray-400">Harga</th>
-              <th className="px-4 py-3 text-right font-medium text-gray-400">Stok</th>
-              <th className="px-4 py-3 text-right font-medium text-gray-400">Min. Stok</th>
-              <th className="px-4 py-3 font-medium text-gray-400">Supplier</th>
-              <th className="px-4 py-3 font-medium text-gray-400">Status</th>
+            <tr className="border-b border-[var(--border)] bg-[var(--bg-secondary)]">
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">SKU</th>
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Nama Produk</th>
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Kategori</th>
+              <th className="px-4 py-3 text-right font-medium text-[var(--text-secondary)]">Harga</th>
+              <th className="px-4 py-3 text-right font-medium text-[var(--text-secondary)]">Stok</th>
+              <th className="px-4 py-3 text-right font-medium text-[var(--text-secondary)]">Min. Stok</th>
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Supplier</th>
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Status</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-[#262636]">
             {filtered.map((product) => (
-              <tr key={product.id} className="hover:bg-[#1e1e2a]">
-                <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-gray-500">
+              <tr key={product.id} className="hover:bg-[var(--bg-elevated)]">
+                <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-[var(--text-muted)]">
                   {product.sku}
                 </td>
                 <td className="px-4 py-3">
-                  <div className="font-medium text-gray-100">{product.name}</div>
+                  <div className="font-medium text-[var(--text-primary)]">{product.name}</div>
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-gray-400">
+                <td className="whitespace-nowrap px-4 py-3 text-[var(--text-secondary)]">
                   {product.category}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-right font-medium text-gray-100">
+                <td className="whitespace-nowrap px-4 py-3 text-right font-medium text-[var(--text-primary)]">
                   {formatRupiah(product.price)}
                 </td>
                 <td className="whitespace-nowrap px-4 py-3 text-right">
@@ -109,16 +109,16 @@ export default function InventoryTable({ products }: InventoryTableProps) {
                         ? "font-bold text-red-600"
                         : product.stock <= product.minStock
                         ? "font-bold text-amber-600"
-                        : "text-gray-400"
+                        : "text-[var(--text-secondary)]"
                     }
                   >
                     {product.stock} {product.unit}
                   </span>
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-right text-gray-500">
+                <td className="whitespace-nowrap px-4 py-3 text-right text-[var(--text-muted)]">
                   {product.minStock} {product.unit}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-gray-400">
+                <td className="whitespace-nowrap px-4 py-3 text-[var(--text-secondary)]">
                   {product.supplier}
                 </td>
                 <td className="whitespace-nowrap px-4 py-3">
@@ -131,7 +131,7 @@ export default function InventoryTable({ products }: InventoryTableProps) {
       </div>
 
       {/* Footer */}
-      <div className="border-t border-[#262636] px-4 py-3 text-sm text-gray-500">
+      <div className="border-t border-[var(--border)] px-4 py-3 text-sm text-[var(--text-muted)]">
         Menampilkan {filtered.length} dari {products.length} produk
       </div>
     </div>

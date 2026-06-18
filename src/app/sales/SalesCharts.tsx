@@ -29,8 +29,8 @@ export default function SalesCharts({ channelData, categoryData, salesTrend }: P
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
       {/* Sales Trend */}
-      <div className="rounded-xl border border-[#262636] bg-[#16161f] p-6 shadow-sm">
-        <h3 className="mb-4 text-sm font-semibold text-gray-100">
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm">
+        <h3 className="mb-4 text-sm font-semibold text-[var(--text-primary)]">
           Tren Penjualan
         </h3>
         <ResponsiveContainer width="100%" height={280}>
@@ -64,8 +64,8 @@ export default function SalesCharts({ channelData, categoryData, salesTrend }: P
       </div>
 
       {/* Channel Performance */}
-      <div className="rounded-xl border border-[#262636] bg-[#16161f] p-6 shadow-sm">
-        <h3 className="mb-4 text-sm font-semibold text-gray-100">
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm">
+        <h3 className="mb-4 text-sm font-semibold text-[var(--text-primary)]">
           Revenue per Channel
         </h3>
         <ResponsiveContainer width="100%" height={280}>
@@ -98,7 +98,7 @@ export default function SalesCharts({ channelData, categoryData, salesTrend }: P
         </ResponsiveContainer>
 
         {/* Channel summary */}
-        <div className="mt-3 space-y-2 border-t border-[#262636] pt-3">
+        <div className="mt-3 space-y-2 border-t border-[var(--border)] pt-3">
           {channelData.map((ch, i) => (
             <div key={ch.name} className="flex items-center justify-between text-sm">
               <div className="flex items-center gap-2">
@@ -106,11 +106,11 @@ export default function SalesCharts({ channelData, categoryData, salesTrend }: P
                   className="h-3 w-3 rounded-full"
                   style={{ backgroundColor: COLORS[i % COLORS.length] }}
                 />
-                <span className="text-gray-400">{ch.name}</span>
+                <span className="text-[var(--text-secondary)]">{ch.name}</span>
               </div>
               <div className="flex items-center gap-4">
-                <span className="text-gray-500">{ch.orders} transaksi</span>
-                <span className="font-medium text-gray-100">
+                <span className="text-[var(--text-muted)]">{ch.orders} transaksi</span>
+                <span className="font-medium text-[var(--text-primary)]">
                   {formatRupiah(ch.revenue)}
                 </span>
               </div>
@@ -120,8 +120,8 @@ export default function SalesCharts({ channelData, categoryData, salesTrend }: P
       </div>
 
       {/* Category Performance */}
-      <div className="rounded-xl border border-[#262636] bg-[#16161f] p-6 shadow-sm lg:col-span-2">
-        <h3 className="mb-4 text-sm font-semibold text-gray-100">
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm lg:col-span-2">
+        <h3 className="mb-4 text-sm font-semibold text-[var(--text-primary)]">
           Revenue per Kategori Produk
         </h3>
         <ResponsiveContainer width="100%" height={250}>

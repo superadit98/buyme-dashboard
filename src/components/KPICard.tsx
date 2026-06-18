@@ -46,13 +46,13 @@ export default function KPICard({
   const colors = COLOR_MAP[color];
 
   return (
-    <div className="rounded-xl border border-[#262636] bg-[#16161f] p-6 shadow-sm">
+    <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm">
       <div className="flex items-start justify-between">
         <div className="flex-1">
-          <p className="text-sm font-medium text-gray-400">{title}</p>
-          <p className="mt-2 text-3xl font-bold text-gray-100">{value}</p>
+          <p className="text-sm font-medium text-[var(--text-secondary)]">{title}</p>
+          <p className="mt-2 text-3xl font-bold text-[var(--text-primary)]">{value}</p>
           {subtitle && (
-            <p className="mt-1 text-sm text-gray-500">{subtitle}</p>
+            <p className="mt-1 text-sm text-[var(--text-muted)]">{subtitle}</p>
           )}
           {trend && (
             <div className="mt-2 flex items-center gap-1">
@@ -63,7 +63,7 @@ export default function KPICard({
               >
                 {trend.isPositive ? "↑" : "↓"} {Math.abs(trend.value)}%
               </span>
-              <span className="text-xs text-gray-400">vs bulan lalu</span>
+              <span className="text-xs text-[var(--text-secondary)]">vs bulan lalu</span>
             </div>
           )}
         </div>

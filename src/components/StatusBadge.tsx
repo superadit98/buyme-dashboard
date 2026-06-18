@@ -33,7 +33,7 @@ interface StatusBadgeProps {
 }
 
 export default function StatusBadge({ status }: StatusBadgeProps) {
-  const style = BADGE_STYLES[status] || "bg-gray-900/30 text-gray-400 border-gray-800/50";
+  const style = BADGE_STYLES[status] || "bg-gray-900/30 text-[var(--text-secondary)] border-gray-800/50";
   const dot = DOT_COLORS[status] || "bg-gray-400";
 
   return (

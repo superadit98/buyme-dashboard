@@ -49,9 +49,9 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
   }, [orders, search, statusFilter, channelFilter]);
 
   return (
-    <div className="rounded-xl border border-[#262636] bg-[#16161f] shadow-sm">
+    <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-sm">
       {/* Toolbar */}
-      <div className="flex flex-col gap-3 border-b border-[#262636] p-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 border-b border-[var(--border)] p-4 sm:flex-row sm:items-center sm:justify-between">
         <SearchFilter
           value={search}
           onChange={setSearch}
@@ -59,11 +59,11 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
         />
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-500">Status:</span>
+            <span className="text-sm text-[var(--text-muted)]">Status:</span>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as OrderStatus | "All")}
-              className="rounded-lg border border-[#262636] bg-[#111118] px-3 py-1.5 text-sm text-gray-300 focus:border-blue-500 focus:outline-none"
+              className="rounded-lg border border-[var(--border)] bg-[var(--bg-secondary)] px-3 py-1.5 text-sm text-[var(--text-secondary)] focus:border-blue-500 focus:outline-none"
             >
               <option value="All">Semua</option>
               {STATUS_OPTIONS.map((s) => (
@@ -72,11 +72,11 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
             </select>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-500">Channel:</span>
+            <span className="text-sm text-[var(--text-muted)]">Channel:</span>
             <select
               value={channelFilter}
               onChange={(e) => setChannelFilter(e.target.value)}
-              className="rounded-lg border border-[#262636] bg-[#111118] px-3 py-1.5 text-sm text-gray-300 focus:border-blue-500 focus:outline-none"
+              className="rounded-lg border border-[var(--border)] bg-[var(--bg-secondary)] px-3 py-1.5 text-sm text-[var(--text-secondary)] focus:border-blue-500 focus:outline-none"
             >
               <option value="All">Semua</option>
               <option value="Shopee">Shopee</option>
@@ -92,43 +92,43 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm">
           <thead>
-            <tr className="border-b border-[#262636] bg-[#111118]">
-              <th className="px-4 py-3 font-medium text-gray-400">Order ID</th>
-              <th className="px-4 py-3 font-medium text-gray-400">Pelanggan</th>
-              <th className="px-4 py-3 font-medium text-gray-400">Tanggal</th>
-              <th className="px-4 py-3 text-center font-medium text-gray-400">Item</th>
-              <th className="px-4 py-3 text-right font-medium text-gray-400">Total</th>
-              <th className="px-4 py-3 font-medium text-gray-400">Channel</th>
-              <th className="px-4 py-3 font-medium text-gray-400">Status</th>
-              <th className="px-4 py-3 font-medium text-gray-400">Alamat</th>
+            <tr className="border-b border-[var(--border)] bg-[var(--bg-secondary)]">
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Order ID</th>
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Pelanggan</th>
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Tanggal</th>
+              <th className="px-4 py-3 text-center font-medium text-[var(--text-secondary)]">Item</th>
+              <th className="px-4 py-3 text-right font-medium text-[var(--text-secondary)]">Total</th>
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Channel</th>
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Status</th>
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Alamat</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-[#262636]">
             {filtered.map((order) => (
-              <tr key={order.id} className="hover:bg-[#1e1e2a]">
+              <tr key={order.id} className="hover:bg-[var(--bg-elevated)]">
                 <td className="whitespace-nowrap px-4 py-3 font-mono text-xs font-medium text-blue-600">
                   {order.id}
                 </td>
                 <td className="px-4 py-3">
-                  <div className="font-medium text-gray-100">{order.customerName}</div>
-                  <div className="text-xs text-gray-500">{order.customerEmail}</div>
+                  <div className="font-medium text-[var(--text-primary)]">{order.customerName}</div>
+                  <div className="text-xs text-[var(--text-muted)]">{order.customerEmail}</div>
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-gray-400">
+                <td className="whitespace-nowrap px-4 py-3 text-[var(--text-secondary)]">
                   {new Date(order.date).toLocaleDateString("id-ID", {
                     day: "numeric",
                     month: "short",
                     year: "numeric",
                   })}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-center text-gray-400">
+                <td className="whitespace-nowrap px-4 py-3 text-center text-[var(--text-secondary)]">
                   {order.items}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-right font-semibold text-gray-100">
+                <td className="whitespace-nowrap px-4 py-3 text-right font-semibold text-[var(--text-primary)]">
                   {formatRupiah(order.total)}
                 </td>
                 <td className="whitespace-nowrap px-4 py-3">
                   <span className={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium ${
-                    CHANNEL_COLORS[order.channel] || "bg-gray-500/10 text-gray-400"
+                    CHANNEL_COLORS[order.channel] || "bg-gray-500/10 text-[var(--text-secondary)]"
                   }`}>
                     {order.channel}
                   </span>
@@ -136,7 +136,7 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
                 <td className="whitespace-nowrap px-4 py-3">
                   <StatusBadge status={order.status} />
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-gray-400">
+                <td className="whitespace-nowrap px-4 py-3 text-[var(--text-secondary)]">
                   {order.address}
                 </td>
               </tr>
@@ -146,7 +146,7 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
       </div>
 
       {/* Footer */}
-      <div className="border-t border-[#262636] px-4 py-3 text-sm text-gray-500">
+      <div className="border-t border-[var(--border)] px-4 py-3 text-sm text-[var(--text-muted)]">
         Menampilkan {filtered.length} dari {orders.length} pesanan
       </div>
     </div>

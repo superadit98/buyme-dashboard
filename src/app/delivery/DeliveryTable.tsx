@@ -57,19 +57,19 @@ export default function DeliveryTable({ shipments }: DeliveryTableProps) {
   }
 
   return (
-    <div className="rounded-xl border border-[#262636] bg-[#16161f] shadow-sm">
-      <div className="flex flex-col gap-3 border-b border-[#262636] p-4 sm:flex-row sm:items-center sm:justify-between">
+    <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-sm">
+      <div className="flex flex-col gap-3 border-b border-[var(--border)] p-4 sm:flex-row sm:items-center sm:justify-between">
         <SearchFilter
           value={search}
           onChange={setSearch}
           placeholder="Cari Order ID, tracking, nama, atau kota..."
         />
         <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-500">Ekspedisi:</span>
+          <span className="text-sm text-[var(--text-muted)]">Ekspedisi:</span>
           <select
             value={carrierFilter}
             onChange={(e) => setCarrierFilter(e.target.value)}
-            className="rounded-lg border border-[#262636] bg-[#111118] px-3 py-1.5 text-sm text-gray-300 focus:border-blue-500 focus:outline-none"
+            className="rounded-lg border border-[var(--border)] bg-[var(--bg-secondary)] px-3 py-1.5 text-sm text-[var(--text-secondary)] focus:border-blue-500 focus:outline-none"
           >
             {CARRIERS.map((c) => (
               <option key={c} value={c}>
@@ -83,49 +83,49 @@ export default function DeliveryTable({ shipments }: DeliveryTableProps) {
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm">
           <thead>
-            <tr className="border-b border-[#262636] bg-[#111118]">
-              <th className="px-4 py-3 font-medium text-gray-400">Shipment ID</th>
-              <th className="px-4 py-3 font-medium text-gray-400">Order ID</th>
-              <th className="px-4 py-3 font-medium text-gray-400">Pelanggan</th>
-              <th className="px-4 py-3 font-medium text-gray-400">Ekspedisi</th>
-              <th className="px-4 py-3 font-medium text-gray-400">No. Resi</th>
-              <th className="px-4 py-3 font-medium text-gray-400">Tujuan</th>
-              <th className="px-4 py-3 font-medium text-gray-400">Kirim</th>
-              <th className="px-4 py-3 font-medium text-gray-400">Estimasi</th>
-              <th className="px-4 py-3 text-right font-medium text-gray-400">Ongkir</th>
-              <th className="px-4 py-3 font-medium text-gray-400">Status</th>
+            <tr className="border-b border-[var(--border)] bg-[var(--bg-secondary)]">
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Shipment ID</th>
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Order ID</th>
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Pelanggan</th>
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Ekspedisi</th>
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">No. Resi</th>
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Tujuan</th>
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Kirim</th>
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Estimasi</th>
+              <th className="px-4 py-3 text-right font-medium text-[var(--text-secondary)]">Ongkir</th>
+              <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Status</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-[#262636]">
             {filtered.map((s) => (
-              <tr key={s.id} className="hover:bg-[#1e1e2a]">
-                <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-gray-500">
+              <tr key={s.id} className="hover:bg-[var(--bg-elevated)]">
+                <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-[var(--text-muted)]">
                   {s.id}
                 </td>
                 <td className="whitespace-nowrap px-4 py-3 font-mono text-xs font-medium text-blue-600">
                   {s.orderId}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-gray-100">
+                <td className="whitespace-nowrap px-4 py-3 text-[var(--text-primary)]">
                   {s.customerName}
                 </td>
                 <td className="whitespace-nowrap px-4 py-3">
-                  <span className="inline-flex items-center rounded-md bg-[#1e1e2a] px-2 py-0.5 text-xs font-medium text-gray-300">
+                  <span className="inline-flex items-center rounded-md bg-[var(--bg-elevated)] px-2 py-0.5 text-xs font-medium text-[var(--text-secondary)]">
                     {s.carrier}
                   </span>
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-gray-400">
+                <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-[var(--text-secondary)]">
                   {s.trackingNumber}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-gray-400">
+                <td className="whitespace-nowrap px-4 py-3 text-[var(--text-secondary)]">
                   {s.destination || "-"}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-gray-400">
+                <td className="whitespace-nowrap px-4 py-3 text-[var(--text-secondary)]">
                   {formatDate(s.shipDate)}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-gray-400">
+                <td className="whitespace-nowrap px-4 py-3 text-[var(--text-secondary)]">
                   {formatDate(s.estimatedDelivery)}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-right text-gray-100">
+                <td className="whitespace-nowrap px-4 py-3 text-right text-[var(--text-primary)]">
                   {formatRupiah(s.cost)}
                 </td>
                 <td className="whitespace-nowrap px-4 py-3">
@@ -137,7 +137,7 @@ export default function DeliveryTable({ shipments }: DeliveryTableProps) {
         </table>
       </div>
 
-      <div className="border-t border-[#262636] px-4 py-3 text-sm text-gray-500">
+      <div className="border-t border-[var(--border)] px-4 py-3 text-sm text-[var(--text-muted)]">
         Menampilkan {filtered.length} dari {shipments.length} pengiriman
       </div>
     </div>

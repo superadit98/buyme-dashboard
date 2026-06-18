@@ -120,8 +120,8 @@ export default async function OverviewPage() {
     <div className="space-y-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-100">Dashboard Overview</h1>
-        <p className="text-sm text-gray-400">
+        <h1 className="text-2xl font-bold text-[var(--text-primary)]">Dashboard Overview</h1>
+        <p className="text-sm text-[var(--text-secondary)]">
           Ringkasan kondisi operasional BuyMe secara keseluruhan
         </p>
       </div>

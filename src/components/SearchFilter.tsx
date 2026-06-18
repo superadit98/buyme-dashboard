@@ -15,18 +15,18 @@ export default function SearchFilter({
 }: SearchFilterProps) {
   return (
     <div className="relative">
-      <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-500" />
+      <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-[var(--text-muted)]" />
       <input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-lg border border-[#262636] bg-[#16161f] py-2 pl-10 pr-10 text-sm text-gray-100 placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+        className="w-full rounded-lg border border-[var(--border)] bg-[var(--bg-card)] py-2 pl-10 pr-10 text-sm text-[var(--text-primary)] placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
       />
       {value && (
         <button
           onClick={() => onChange("")}
-          className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 hover:text-gray-300"
+          className="absolute top-1/2 right-3 -translate-y-1/2 text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
         >
           <X className="h-4 w-4" />
         </button>

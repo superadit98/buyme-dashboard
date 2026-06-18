@@ -34,23 +34,23 @@ export default async function OrdersPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-100">Order Fulfillment</h1>
-        <p className="text-sm text-gray-400">
+        <h1 className="text-2xl font-bold text-[var(--text-primary)]">Order Fulfillment</h1>
+        <p className="text-sm text-[var(--text-secondary)]">
           Pemantauan status pesanan dari seluruh channel penjualan
         </p>
       </div>
 
       {/* Stats bar */}
       <div className="flex flex-wrap gap-3">
-        <StatusPill label="Total" count={stats.total} color="bg-gray-50/10 text-gray-400" />
+        <StatusPill label="Total" count={stats.total} color="bg-gray-50/10 text-[var(--text-secondary)]" />
         <StatusPill label="Pending" count={stats.pending} color="bg-amber-50/10 text-amber-400" />
         <StatusPill label="Packed" count={stats.packed} color="bg-blue-50/10 text-blue-400" />
         <StatusPill label="Shipped" count={stats.shipped} color="bg-indigo-50/10 text-indigo-400" />
         <StatusPill label="Delivered" count={stats.delivered} color="bg-green-50/10 text-green-400" />
         <StatusPill label="Cancelled" count={stats.cancelled} color="bg-red-50/10 text-red-400" />
-        <div className="ml-auto flex items-center rounded-lg border border-[#262636] bg-[#16161f] px-4 py-2 shadow-sm">
-          <span className="text-sm text-gray-400">Total Revenue:</span>
-          <span className="ml-2 font-bold text-gray-100">{formatRupiah(stats.totalRevenue)}</span>
+        <div className="ml-auto flex items-center rounded-lg border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2 shadow-sm">
+          <span className="text-sm text-[var(--text-secondary)]">Total Revenue:</span>
+          <span className="ml-2 font-bold text-[var(--text-primary)]">{formatRupiah(stats.totalRevenue)}</span>
         </div>
       </div>
 

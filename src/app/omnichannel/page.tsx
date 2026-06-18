@@ -75,8 +75,8 @@ export default async function OmnichannelPage() {
     <div className="space-y-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-100">Omnichannel Monitoring</h1>
-        <p className="text-sm text-gray-400">
+        <h1 className="text-2xl font-bold text-[var(--text-primary)]">Omnichannel Monitoring</h1>
+        <p className="text-sm text-[var(--text-secondary)]">
           Performa penjualan dari berbagai channel penjualan
         </p>
       </div>
@@ -84,7 +84,7 @@ export default async function OmnichannelPage() {
       {/* Channel Cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {channelStats.map((ch) => {
-          const config = CHANNEL_CONFIG[ch.name] || { icon: Store, color: "text-gray-400", bgColor: "bg-gray-500/10" };
+          const config = CHANNEL_CONFIG[ch.name] || { icon: Store, color: "text-[var(--text-secondary)]", bgColor: "bg-gray-500/10" };
           const Icon = config.icon;
           const revenueShare = totalRevenueAll > 0
             ? Math.round((ch.totalRevenue / totalRevenueAll) * 100)
@@ -93,15 +93,15 @@ export default async function OmnichannelPage() {
           return (
             <div
               key={ch.name}
-              className="rounded-xl border border-[#262636] bg-[#16161f] p-6 shadow-sm"
+              className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-400">{ch.name}</p>
-                  <p className="mt-2 text-2xl font-bold text-gray-100">
+                  <p className="text-sm font-medium text-[var(--text-secondary)]">{ch.name}</p>
+                  <p className="mt-2 text-2xl font-bold text-[var(--text-primary)]">
                     {formatRupiah(ch.totalRevenue)}
                   </p>
-                  <p className="mt-1 text-xs text-gray-500">
+                  <p className="mt-1 text-xs text-[var(--text-muted)]">
                     {revenueShare}% dari total revenue
                   </p>
                 </div>
@@ -110,21 +110,21 @@ export default async function OmnichannelPage() {
                 </div>
               </div>
 
-              <div className="mt-4 grid grid-cols-2 gap-3 border-t border-[#262636] pt-4">
+              <div className="mt-4 grid grid-cols-2 gap-3 border-t border-[var(--border)] pt-4">
                 <div>
-                  <p className="text-xs text-gray-500">Pesanan</p>
-                  <p className="text-lg font-bold text-gray-100">{ch.totalOrders}</p>
+                  <p className="text-xs text-[var(--text-muted)]">Pesanan</p>
+                  <p className="text-lg font-bold text-[var(--text-primary)]">{ch.totalOrders}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">Terjual</p>
-                  <p className="text-lg font-bold text-gray-100">{ch.totalQty}</p>
+                  <p className="text-xs text-[var(--text-muted)]">Terjual</p>
+                  <p className="text-lg font-bold text-[var(--text-primary)]">{ch.totalQty}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">Selesai</p>
+                  <p className="text-xs text-[var(--text-muted)]">Selesai</p>
                   <p className="text-lg font-bold text-green-600">{ch.delivered}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">Fulfillment</p>
+                  <p className="text-xs text-[var(--text-muted)]">Fulfillment</p>
                   <p className={`text-lg font-bold ${ch.fulfillmentRate >= 80 ? "text-green-600" : "text-amber-600"}`}>
                     {ch.fulfillmentRate}%
                   </p>
@@ -139,34 +139,34 @@ export default async function OmnichannelPage() {
       <OmnichannelCharts data={chartData} />
 
       {/* Channel Detail Table */}
-      <div className="rounded-xl border border-[#262636] bg-[#16161f] shadow-sm">
-        <div className="border-b border-[#262636] px-4 py-3">
-          <h3 className="text-sm font-semibold text-gray-100">
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-sm">
+        <div className="border-b border-[var(--border)] px-4 py-3">
+          <h3 className="text-sm font-semibold text-[var(--text-primary)]">
             Detail Per Channel
           </h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead>
-              <tr className="border-b border-[#262636] bg-[#111118]">
-                <th className="px-4 py-3 font-medium text-gray-400">Channel</th>
-                <th className="px-4 py-3 text-center font-medium text-gray-400">Pesanan</th>
-                <th className="px-4 py-3 text-center font-medium text-gray-400">Terjual</th>
-                <th className="px-4 py-3 text-right font-medium text-gray-400">Revenue</th>
-                <th className="px-4 py-3 text-right font-medium text-gray-400">Profit</th>
-                <th className="px-4 py-3 text-center font-medium text-gray-400">Fulfillment</th>
-                <th className="px-4 py-3 text-center font-medium text-gray-400">Batal</th>
+              <tr className="border-b border-[var(--border)] bg-[var(--bg-secondary)]">
+                <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Channel</th>
+                <th className="px-4 py-3 text-center font-medium text-[var(--text-secondary)]">Pesanan</th>
+                <th className="px-4 py-3 text-center font-medium text-[var(--text-secondary)]">Terjual</th>
+                <th className="px-4 py-3 text-right font-medium text-[var(--text-secondary)]">Revenue</th>
+                <th className="px-4 py-3 text-right font-medium text-[var(--text-secondary)]">Profit</th>
+                <th className="px-4 py-3 text-center font-medium text-[var(--text-secondary)]">Fulfillment</th>
+                <th className="px-4 py-3 text-center font-medium text-[var(--text-secondary)]">Batal</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#262636]">
               {channelStats.map((ch) => (
-                <tr key={ch.name} className="hover:bg-[#1e1e2a]">
+                <tr key={ch.name} className="hover:bg-[var(--bg-elevated)]">
                   <td className="whitespace-nowrap px-4 py-3">
-                    <span className="font-medium text-gray-100">{ch.name}</span>
+                    <span className="font-medium text-[var(--text-primary)]">{ch.name}</span>
                   </td>
-                  <td className="whitespace-nowrap px-4 py-3 text-center text-gray-400">{ch.totalOrders}</td>
-                  <td className="whitespace-nowrap px-4 py-3 text-center text-gray-400">{ch.totalQty}</td>
-                  <td className="whitespace-nowrap px-4 py-3 text-right text-gray-100">{formatRupiah(ch.totalRevenue)}</td>
+                  <td className="whitespace-nowrap px-4 py-3 text-center text-[var(--text-secondary)]">{ch.totalOrders}</td>
+                  <td className="whitespace-nowrap px-4 py-3 text-center text-[var(--text-secondary)]">{ch.totalQty}</td>
+                  <td className="whitespace-nowrap px-4 py-3 text-right text-[var(--text-primary)]">{formatRupiah(ch.totalRevenue)}</td>
                   <td className="whitespace-nowrap px-4 py-3 text-right font-medium text-green-600">{formatRupiah(ch.totalProfit)}</td>
                   <td className="whitespace-nowrap px-4 py-3 text-center">
                     <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${
@@ -181,7 +181,7 @@ export default async function OmnichannelPage() {
             </tbody>
           </table>
         </div>
-        <div className="border-t border-[#262636] px-4 py-3 text-sm text-gray-500">
+        <div className="border-t border-[var(--border)] px-4 py-3 text-sm text-[var(--text-muted)]">
           Total {totalOrdersAll} pesanan dari {channels.length} channel
         </div>
       </div>

@@ -36,8 +36,8 @@ export default function OverviewCharts({
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
       {/* Revenue Chart */}
-      <div className="rounded-xl border border-[#262636] bg-[#16161f] p-6 shadow-sm">
-        <h3 className="mb-4 text-sm font-semibold text-gray-100">
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm">
+        <h3 className="mb-4 text-sm font-semibold text-[var(--text-primary)]">
           Revenue & Profit per Hari
         </h3>
         <ResponsiveContainer width="100%" height={300}>
@@ -68,19 +68,19 @@ export default function OverviewCharts({
             <Bar dataKey="profit" fill="#22c55e" name="Profit" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
-        <div className="mt-3 flex justify-between border-t border-[#262636] pt-3 text-sm">
-          <span className="text-gray-500">Total Revenue</span>
-          <span className="font-semibold text-gray-100">{formatRupiah(totalRevenue)}</span>
+        <div className="mt-3 flex justify-between border-t border-[var(--border)] pt-3 text-sm">
+          <span className="text-[var(--text-muted)]">Total Revenue</span>
+          <span className="font-semibold text-[var(--text-primary)]">{formatRupiah(totalRevenue)}</span>
         </div>
         <div className="flex justify-between text-sm">
-          <span className="text-gray-500">Total Profit</span>
+          <span className="text-[var(--text-muted)]">Total Profit</span>
           <span className="font-semibold text-green-600">{formatRupiah(totalProfit)}</span>
         </div>
       </div>
 
       {/* Order Status Pie */}
-      <div className="rounded-xl border border-[#262636] bg-[#16161f] p-6 shadow-sm">
-        <h3 className="mb-4 text-sm font-semibold text-gray-100">
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm">
+        <h3 className="mb-4 text-sm font-semibold text-[var(--text-primary)]">
           Status Pesanan
         </h3>
         <ResponsiveContainer width="100%" height={300}>
@@ -112,8 +112,8 @@ export default function OverviewCharts({
       </div>
 
       {/* Category Revenue */}
-      <div className="rounded-xl border border-[#262636] bg-[#16161f] p-6 shadow-sm lg:col-span-2">
-        <h3 className="mb-4 text-sm font-semibold text-gray-100">
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm lg:col-span-2">
+        <h3 className="mb-4 text-sm font-semibold text-[var(--text-primary)]">
           Revenue per Kategori Produk
         </h3>
         <ResponsiveContainer width="100%" height={250}>

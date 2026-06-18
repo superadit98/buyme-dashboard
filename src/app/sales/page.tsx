@@ -76,37 +76,37 @@ export default async function SalesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-100">Sales Analytics</h1>
-        <p className="text-sm text-gray-400">
+        <h1 className="text-2xl font-bold text-[var(--text-primary)]">Sales Analytics</h1>
+        <p className="text-sm text-[var(--text-secondary)]">
           Analisis penjualan, tren, dan performa per channel & kategori
         </p>
       </div>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-6">
-        <div className="rounded-lg border border-[#262636] bg-[#16161f] p-4 text-center shadow-sm">
-          <p className="text-lg font-bold text-gray-100">{formatRupiah(totalRevenue)}</p>
-          <p className="text-xs text-gray-500">Total Revenue</p>
+        <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-4 text-center shadow-sm">
+          <p className="text-lg font-bold text-[var(--text-primary)]">{formatRupiah(totalRevenue)}</p>
+          <p className="text-xs text-[var(--text-muted)]">Total Revenue</p>
         </div>
-        <div className="rounded-lg border border-[#262636] bg-[#16161f] p-4 text-center shadow-sm">
+        <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-4 text-center shadow-sm">
           <p className="text-lg font-bold text-green-600">{formatRupiah(totalProfit)}</p>
-          <p className="text-xs text-gray-500">Total Profit</p>
+          <p className="text-xs text-[var(--text-muted)]">Total Profit</p>
         </div>
-        <div className="rounded-lg border border-[#262636] bg-[#16161f] p-4 text-center shadow-sm">
-          <p className="text-lg font-bold text-gray-100">{formatRupiah(totalCost)}</p>
-          <p className="text-xs text-gray-500">Total Modal</p>
+        <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-4 text-center shadow-sm">
+          <p className="text-lg font-bold text-[var(--text-primary)]">{formatRupiah(totalCost)}</p>
+          <p className="text-xs text-[var(--text-muted)]">Total Modal</p>
         </div>
-        <div className="rounded-lg border border-[#262636] bg-[#16161f] p-4 text-center shadow-sm">
+        <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-4 text-center shadow-sm">
           <p className="text-2xl font-bold text-blue-600">{totalQty}</p>
-          <p className="text-xs text-gray-500">Total Terjual</p>
+          <p className="text-xs text-[var(--text-muted)]">Total Terjual</p>
         </div>
-        <div className="rounded-lg border border-[#262636] bg-[#16161f] p-4 text-center shadow-sm">
-          <p className="text-lg font-bold text-gray-100">{formatRupiah(avgOrderValue)}</p>
-          <p className="text-xs text-gray-500">Rata-rata/Transaksi</p>
+        <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-4 text-center shadow-sm">
+          <p className="text-lg font-bold text-[var(--text-primary)]">{formatRupiah(avgOrderValue)}</p>
+          <p className="text-xs text-[var(--text-muted)]">Rata-rata/Transaksi</p>
         </div>
-        <div className="rounded-lg border border-[#262636] bg-[#16161f] p-4 text-center shadow-sm">
+        <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-4 text-center shadow-sm">
           <p className="text-2xl font-bold text-green-600">{profitMargin.toFixed(1)}%</p>
-          <p className="text-xs text-gray-500">Profit Margin</p>
+          <p className="text-xs text-[var(--text-muted)]">Profit Margin</p>
         </div>
       </div>
 
@@ -118,42 +118,42 @@ export default async function SalesPage() {
       />
 
       {/* Sales Table */}
-      <div className="rounded-xl border border-[#262636] bg-[#16161f] shadow-sm">
-        <div className="border-b border-[#262636] px-4 py-3">
-          <h3 className="text-sm font-semibold text-gray-100">
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-sm">
+        <div className="border-b border-[var(--border)] px-4 py-3">
+          <h3 className="text-sm font-semibold text-[var(--text-primary)]">
             Detail Transaksi
           </h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead>
-              <tr className="border-b border-[#262636] bg-[#111118]">
-                <th className="px-4 py-3 font-medium text-gray-400">ID</th>
-                <th className="px-4 py-3 font-medium text-gray-400">Order</th>
-                <th className="px-4 py-3 font-medium text-gray-400">Tanggal</th>
-                <th className="px-4 py-3 font-medium text-gray-400">Kategori</th>
-                <th className="px-4 py-3 text-center font-medium text-gray-400">Qty</th>
-                <th className="px-4 py-3 text-right font-medium text-gray-400">Revenue</th>
-                <th className="px-4 py-3 text-right font-medium text-gray-400">Modal</th>
-                <th className="px-4 py-3 text-right font-medium text-gray-400">Profit</th>
-                <th className="px-4 py-3 font-medium text-gray-400">Channel</th>
+              <tr className="border-b border-[var(--border)] bg-[var(--bg-secondary)]">
+                <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">ID</th>
+                <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Order</th>
+                <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Tanggal</th>
+                <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Kategori</th>
+                <th className="px-4 py-3 text-center font-medium text-[var(--text-secondary)]">Qty</th>
+                <th className="px-4 py-3 text-right font-medium text-[var(--text-secondary)]">Revenue</th>
+                <th className="px-4 py-3 text-right font-medium text-[var(--text-secondary)]">Modal</th>
+                <th className="px-4 py-3 text-right font-medium text-[var(--text-secondary)]">Profit</th>
+                <th className="px-4 py-3 font-medium text-[var(--text-secondary)]">Channel</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#262636]">
               {sales.map((s) => (
-                <tr key={s.id} className="hover:bg-[#1e1e2a]">
-                  <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-gray-500">{s.id}</td>
+                <tr key={s.id} className="hover:bg-[var(--bg-elevated)]">
+                  <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-[var(--text-muted)]">{s.id}</td>
                   <td className="whitespace-nowrap px-4 py-3 font-mono text-xs font-medium text-blue-600">{s.orderId}</td>
-                  <td className="whitespace-nowrap px-4 py-3 text-gray-400">
+                  <td className="whitespace-nowrap px-4 py-3 text-[var(--text-secondary)]">
                     {new Date(s.date).toLocaleDateString("id-ID", { day: "numeric", month: "short" })}
                   </td>
-                  <td className="whitespace-nowrap px-4 py-3 text-gray-400">{s.productCategory}</td>
-                  <td className="whitespace-nowrap px-4 py-3 text-center text-gray-400">{s.quantity}</td>
-                  <td className="whitespace-nowrap px-4 py-3 text-right text-gray-100">{formatRupiah(s.revenue)}</td>
-                  <td className="whitespace-nowrap px-4 py-3 text-right text-gray-500">{formatRupiah(s.cost)}</td>
+                  <td className="whitespace-nowrap px-4 py-3 text-[var(--text-secondary)]">{s.productCategory}</td>
+                  <td className="whitespace-nowrap px-4 py-3 text-center text-[var(--text-secondary)]">{s.quantity}</td>
+                  <td className="whitespace-nowrap px-4 py-3 text-right text-[var(--text-primary)]">{formatRupiah(s.revenue)}</td>
+                  <td className="whitespace-nowrap px-4 py-3 text-right text-[var(--text-muted)]">{formatRupiah(s.cost)}</td>
                   <td className="whitespace-nowrap px-4 py-3 text-right font-medium text-green-600">{formatRupiah(s.profit)}</td>
                   <td className="whitespace-nowrap px-4 py-3">
-                    <span className="inline-flex items-center rounded-md bg-[#1e1e2a] px-2 py-0.5 text-xs font-medium text-gray-300">
+                    <span className="inline-flex items-center rounded-md bg-[var(--bg-elevated)] px-2 py-0.5 text-xs font-medium text-[var(--text-secondary)]">
                       {s.channel}
                     </span>
                   </td>
@@ -162,7 +162,7 @@ export default async function SalesPage() {
             </tbody>
           </table>
         </div>
-        <div className="border-t border-[#262636] px-4 py-3 text-sm text-gray-500">
+        <div className="border-t border-[var(--border)] px-4 py-3 text-sm text-[var(--text-muted)]">
           Total {sales.length} transaksi
         </div>
       </div>

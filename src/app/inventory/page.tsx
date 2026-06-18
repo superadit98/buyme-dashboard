@@ -53,42 +53,42 @@ export default async function InventoryPage() {
     <div className="space-y-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-100">Inventory Management</h1>
-        <p className="text-sm text-gray-400">
+        <h1 className="text-2xl font-bold text-[var(--text-primary)]">Inventory Management</h1>
+        <p className="text-sm text-[var(--text-secondary)]">
           Informasi persediaan barang dan status stok
         </p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-5">
-        <div className="rounded-lg border border-[#262636] bg-[#16161f] p-4 text-center shadow-sm">
-          <p className="text-2xl font-bold text-gray-100">{stats.total}</p>
-          <p className="text-xs text-gray-500">Total Produk</p>
+        <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-4 text-center shadow-sm">
+          <p className="text-2xl font-bold text-[var(--text-primary)]">{stats.total}</p>
+          <p className="text-xs text-[var(--text-muted)]">Total Produk</p>
         </div>
-        <div className="rounded-lg border border-[#262636] bg-[#16161f] p-4 text-center shadow-sm">
+        <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-4 text-center shadow-sm">
           <p className="text-2xl font-bold text-green-600">{stats.inStock}</p>
-          <p className="text-xs text-gray-500">Stok Aman</p>
+          <p className="text-xs text-[var(--text-muted)]">Stok Aman</p>
         </div>
-        <div className="rounded-lg border border-[#262636] bg-[#16161f] p-4 text-center shadow-sm">
+        <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-4 text-center shadow-sm">
           <p className="text-2xl font-bold text-amber-600">{stats.lowStock}</p>
-          <p className="text-xs text-gray-500">Stok Menipis</p>
+          <p className="text-xs text-[var(--text-muted)]">Stok Menipis</p>
         </div>
-        <div className="rounded-lg border border-[#262636] bg-[#16161f] p-4 text-center shadow-sm">
+        <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-4 text-center shadow-sm">
           <p className="text-2xl font-bold text-red-600">{stats.outOfStock}</p>
-          <p className="text-xs text-gray-500">Habis</p>
+          <p className="text-xs text-[var(--text-muted)]">Habis</p>
         </div>
-        <div className="rounded-lg border border-[#262636] bg-[#16161f] p-4 text-center shadow-sm">
-          <p className="text-lg font-bold text-gray-100">{formatRupiah(stats.totalValue)}</p>
-          <p className="text-xs text-gray-500">Nilai Stok</p>
+        <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-4 text-center shadow-sm">
+          <p className="text-lg font-bold text-[var(--text-primary)]">{formatRupiah(stats.totalValue)}</p>
+          <p className="text-xs text-[var(--text-muted)]">Nilai Stok</p>
         </div>
       </div>
 
       {/* Restock Alerts */}
       {restockAlerts.length > 0 && (
-        <div className="rounded-xl border border-amber-900/30 bg-[#16161f] p-6 shadow-sm">
+        <div className="rounded-xl border border-amber-900/30 bg-[var(--bg-card)] p-6 shadow-sm">
           <div className="mb-4 flex items-center gap-2">
             <AlertTriangle className="h-5 w-5 text-amber-400" />
-            <h2 className="text-lg font-semibold text-gray-100">Restock Alerts</h2>
+            <h2 className="text-lg font-semibold text-[var(--text-primary)]">Restock Alerts</h2>
             <span className="ml-2 rounded-full bg-amber-500/10 px-2 py-0.5 text-xs font-medium text-amber-400">
               {restockAlerts.length} produk perlu restock
             </span>
@@ -97,7 +97,7 @@ export default async function InventoryPage() {
             {restockAlerts.map((p) => (
               <div
                 key={p.id}
-                className="flex items-center justify-between rounded-lg border border-[#262636] bg-[#1c1c28] px-4 py-3"
+                className="flex items-center justify-between rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] px-4 py-3"
               >
                 <div className="flex items-center gap-3">
                   <span className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold ${
@@ -108,11 +108,11 @@ export default async function InventoryPage() {
                     {p.stock}
                   </span>
                   <div>
-                    <span className="font-medium text-gray-100">{p.name}</span>
-                    <span className="ml-2 text-xs text-gray-500">({p.sku})</span>
+                    <span className="font-medium text-[var(--text-primary)]">{p.name}</span>
+                    <span className="ml-2 text-xs text-[var(--text-muted)]">({p.sku})</span>
                   </div>
                 </div>
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-[var(--text-muted)]">
                   Min: {p.minStock} {p.unit}
                 </div>
               </div>
@@ -122,26 +122,26 @@ export default async function InventoryPage() {
       )}
 
       {/* Top Selling Products */}
-      <div className="rounded-xl border border-[#262636] bg-[#16161f] p-6 shadow-sm">
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm">
         <div className="mb-4 flex items-center gap-2">
           <TrendingUp className="h-5 w-5 text-emerald-400" />
-          <h2 className="text-lg font-semibold text-gray-100">Produk Terlaris</h2>
+          <h2 className="text-lg font-semibold text-[var(--text-primary)]">Produk Terlaris</h2>
         </div>
         <div className="space-y-3">
           {topSelling.map((item, index) => (
             <div
               key={item.name}
-              className="flex items-center justify-between rounded-lg border border-[#262636] bg-[#1c1c28] px-4 py-3"
+              className="flex items-center justify-between rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] px-4 py-3"
             >
               <div className="flex items-center gap-3">
                 <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/20 text-sm font-bold text-emerald-400">
                   {index + 1}
                 </span>
-                <span className="font-medium text-gray-100">{item.name}</span>
+                <span className="font-medium text-[var(--text-primary)]">{item.name}</span>
               </div>
               <div className="flex items-center gap-4 text-sm">
-                <span className="text-gray-400">{item.quantity} terjual</span>
-                <span className="font-medium text-gray-100">{formatRupiah(item.revenue)}</span>
+                <span className="text-[var(--text-secondary)]">{item.quantity} terjual</span>
+                <span className="font-medium text-[var(--text-primary)]">{formatRupiah(item.revenue)}</span>
               </div>
             </div>
           ))}
