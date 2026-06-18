@@ -1,0 +1,16 @@
+id,name,category,price,cost,stock,minStock,supplier,sku,unit
+P001,Kaos Polos Katun Premium,Pakaian,89000,42000,180,30,UD Konveksi Bandung,FSH-KTS-001,pcs
+P002,Dress Floral Summer,Pakaian,175000,85000,65,15,PT Fashion Nusantara,FSH-DRS-002,pcs
+P003,Kemeja Linen Premium,Pakaian,210000,95000,40,10,UD Konveksi Bandung,FSH-KMJ-003,pcs
+P004,Celana Chino Slim Fit,Pakaian,165000,78000,8,15,UD Batik Modern,FSH-CLN-004,pcs
+P005,Tas Tote Canvas Premium,Tas,125000,55000,95,20,CV Tas Import,FSH-TTE-005,pcs
+P006,Tas Selempang Kulit,Tas,195000,88000,35,10,CV Tas Import,FSH-TSL-006,pcs
+P007,Ransel Urban Backpack,Tas,250000,115000,5,10,CV Tas Import,FSH-RNS-007,pcs
+P008,Sneakers Casual Pria,Sepatu,320000,150000,50,12,PT Sepatu Lokal,FSH-SNK-008,pcs
+P009,Sandal Kulit Premium,Sepatu,185000,82000,70,15,PT Sepatu Lokal,FSH-SND-009,pcs
+P010,Loafer Suede Classic,Sepatu,275000,130000,3,8,PT Sepatu Lokal,FSH-LOF-010,pcs
+P011,Jam Tangan Analog Classic,Aksesoris,350000,165000,25,5,CV Aksesoris Jewel,FSH-JTM-011,pcs
+P012,Kacamata Sunglasses UV400,Aksesoris,145000,58000,60,10,CV Aksesoris Jewel,FSH-KCM-012,pcs
+P013,Dompet Kulit Pria Slim,Aksesoris,125000,52000,45,10,CV Aksesoris Jewel,FSH-DMT-013,pcs
+P014,Syal Sutera Etnik,Aksesoris,95000,40000,55,12,PT Textile Pro,FSH-SYL-014,pcs
+P015,Kalung Pendant Silver 925,Aksesoris,285000,135000,30,8,CV Aksesoris Jewel,FSH-KLN-015,pcs
