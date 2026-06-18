@@ -20,7 +20,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
-    // Load saved theme from localStorage
     const saved = localStorage.getItem("buyme-theme") as Theme | null;
     if (saved) {
       setTheme(saved);
@@ -35,11 +34,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     document.documentElement.classList.toggle("light-theme", newTheme === "light");
   };
 
-  // Prevent flash of wrong theme
-  if (!mounted) {
-    return <>{children}</>;
-  }
-
+  // Always render provider — jangan skip pas server-side biar hydration match
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
