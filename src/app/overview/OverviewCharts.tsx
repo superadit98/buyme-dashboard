@@ -24,7 +24,15 @@ interface ChartData {
 }
 
 const PIE_COLORS = ["#f59e0b", "#3b82f6", "#6366f1", "#22c55e", "#ef4444"];
-const CATEGORY_COLORS = ["#3b82f6", "#22c55e", "#f59e0b", "#ef4444", "#8b5cf6"];
+const CATEGORY_COLORS = ["#3b82f6", "#22c55e", "#f59e0b", "#ef4444", "#8b5cf6", "#06b6d4", "#ec4899"];
+
+const chartStyle = {
+  borderRadius: "8px",
+  border: "1px solid var(--border, #262636)",
+  background: "var(--bg-secondary, #1e1e2a)",
+  color: "var(--text-primary, #fff)",
+  fontSize: "12px",
+};
 
 export default function OverviewCharts({
   revenueData,
@@ -34,95 +42,109 @@ export default function OverviewCharts({
   totalProfit,
 }: ChartData) {
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-      {/* Revenue Chart */}
-      <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm">
-        <h3 className="mb-4 text-sm font-semibold text-[var(--text-primary)]">
-          Revenue & Profit per Hari
-        </h3>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={revenueData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#1e1e2a" />
-            <XAxis
-              dataKey="date"
-              tick={{ fontSize: 12 }}
-              stroke="#5a5a72"
-            />
-            <YAxis
-              tick={{ fontSize: 12 }}
-              stroke="#5a5a72"
-              tickFormatter={(v) =>
-                v >= 1000000 ? `${(v / 1000000).toFixed(1)}jt` : `${(v / 1000).toFixed(0)}rb`
-              }
-            />
-            <Tooltip
-              formatter={(value: number) => formatRupiah(value)}
-              contentStyle={{
-                borderRadius: "8px",
-                border: "1px solid #262636",
-                background: "#1e1e2a",
-              }}
-            />
-            <Legend />
-            <Bar dataKey="revenue" fill="#3b82f6" name="Revenue" radius={[4, 4, 0, 0]} />
-            <Bar dataKey="profit" fill="#22c55e" name="Profit" radius={[4, 4, 0, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
-        <div className="mt-3 flex justify-between border-t border-[var(--border)] pt-3 text-sm">
-          <span className="text-[var(--text-muted)]">Total Revenue</span>
-          <span className="font-semibold text-[var(--text-primary)]">{formatRupiah(totalRevenue)}</span>
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        {/* Revenue & Profit per Hari */}
+        <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm">
+          <div className="mb-1 text-sm font-semibold text-[var(--text-primary)]">
+            Revenue & Profit per Hari
+          </div>
+          <p className="mb-4 text-xs text-[var(--text-muted)]">Trend pendapatan harian bulan ini</p>
+          <ResponsiveContainer width="100%" height={260}>
+            <BarChart data={revenueData} barGap={2}>
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--border, #262636)" />
+              <XAxis
+                dataKey="date"
+                tick={{ fontSize: 11, fill: "var(--text-muted, #5a5a72)" }}
+                tickLine={false}
+                interval="preserveStartEnd"
+              />
+              <YAxis
+                tick={{ fontSize: 11, fill: "var(--text-muted, #5a5a72)" }}
+                tickLine={false}
+                axisLine={false}
+                tickFormatter={(v) =>
+                  v >= 1000000 ? `${(v / 1000000).toFixed(1)}jt` : `${(v / 1000).toFixed(0)}rb`
+                }
+              />
+              <Tooltip
+                formatter={(value: number) => [formatRupiah(value), ""]}
+                contentStyle={chartStyle}
+              />
+              <Legend wrapperStyle={{ fontSize: 12, paddingTop: 8 }} />
+              <Bar dataKey="revenue" fill="#3b82f6" name="Revenue" radius={[3, 3, 0, 0]} maxBarSize={20} />
+              <Bar dataKey="profit" fill="#22c55e" name="Profit" radius={[3, 3, 0, 0]} maxBarSize={20} />
+            </BarChart>
+          </ResponsiveContainer>
+          <div className="mt-3 flex justify-between border-t border-[var(--border)] pt-3 text-xs">
+            <div>
+              <p className="text-[var(--text-muted)]">Total Revenue</p>
+              <p className="font-bold text-[var(--text-primary)]">{formatRupiah(totalRevenue)}</p>
+            </div>
+            <div className="text-right">
+              <p className="text-[var(--text-muted)]">Total Profit</p>
+              <p className="font-bold text-green-400">{formatRupiah(totalProfit)}</p>
+            </div>
+          </div>
         </div>
-        <div className="flex justify-between text-sm">
-          <span className="text-[var(--text-muted)]">Total Profit</span>
-          <span className="font-semibold text-green-600">{formatRupiah(totalProfit)}</span>
+
+        {/* Status Pesanan */}
+        <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm">
+          <div className="mb-1 text-sm font-semibold text-[var(--text-primary)]">
+            Distribusi Status Pesanan
+          </div>
+          <p className="mb-4 text-xs text-[var(--text-muted)]">Breakdown status dari total pesanan</p>
+          <ResponsiveContainer width="100%" height={220}>
+            <PieChart>
+              <Pie
+                data={orderStatusData}
+                cx="50%"
+                cy="50%"
+                innerRadius={55}
+                outerRadius={90}
+                dataKey="value"
+                paddingAngle={2}
+                label={({ name, percent }) =>
+                  percent > 0.05 ? `${name} ${(percent * 100).toFixed(0)}%` : ""
+                }
+                labelLine={false}
+              >
+                {orderStatusData.map((_, index) => (
+                  <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip
+                formatter={(value: number) => [`${value} pesanan`, "Jumlah"]}
+                contentStyle={chartStyle}
+              />
+            </PieChart>
+          </ResponsiveContainer>
+          {/* Legend manual */}
+          <div className="mt-2 flex flex-wrap justify-center gap-x-4 gap-y-1">
+            {orderStatusData.map((item, i) => (
+              <div key={item.name} className="flex items-center gap-1.5 text-xs text-[var(--text-secondary)]">
+                <span className="h-2 w-2 rounded-full" style={{ background: PIE_COLORS[i % PIE_COLORS.length] }} />
+                {item.name}: {item.value}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Order Status Pie */}
+      {/* Revenue per Kategori */}
       <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm">
-        <h3 className="mb-4 text-sm font-semibold text-[var(--text-primary)]">
-          Status Pesanan
-        </h3>
-        <ResponsiveContainer width="100%" height={300}>
-          <PieChart>
-            <Pie
-              data={orderStatusData}
-              cx="50%"
-              cy="50%"
-              innerRadius={60}
-              outerRadius={100}
-              dataKey="value"
-              label={({ name, percent }) =>
-                `${name} ${(percent * 100).toFixed(0)}%`
-              }
-              labelLine={false}
-            >
-              {orderStatusData.map((_, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={PIE_COLORS[index % PIE_COLORS.length]}
-                />
-              ))}
-            </Pie>
-            <Tooltip
-              formatter={(value: number) => [`${value} pesanan`, "Jumlah"]}
-            />
-          </PieChart>
-        </ResponsiveContainer>
-      </div>
-
-      {/* Category Revenue */}
-      <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm lg:col-span-2">
-        <h3 className="mb-4 text-sm font-semibold text-[var(--text-primary)]">
+        <div className="mb-1 text-sm font-semibold text-[var(--text-primary)]">
           Revenue per Kategori Produk
-        </h3>
-        <ResponsiveContainer width="100%" height={250}>
-          <BarChart data={categoryData} layout="vertical">
-            <CartesianGrid strokeDasharray="3 3" stroke="#1e1e2a" />
+        </div>
+        <p className="mb-4 text-xs text-[var(--text-muted)]">Kontribusi revenue dari setiap kategori skincare</p>
+        <ResponsiveContainer width="100%" height={Math.max(200, categoryData.length * 45)}>
+          <BarChart data={categoryData} layout="vertical" barSize={22}>
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border, #262636)" horizontal={false} />
             <XAxis
               type="number"
-              tick={{ fontSize: 12 }}
-              stroke="#5a5a72"
+              tick={{ fontSize: 11, fill: "var(--text-muted, #5a5a72)" }}
+              tickLine={false}
+              axisLine={false}
               tickFormatter={(v) =>
                 v >= 1000000 ? `${(v / 1000000).toFixed(1)}jt` : `${(v / 1000).toFixed(0)}rb`
               }
@@ -130,24 +152,18 @@ export default function OverviewCharts({
             <YAxis
               dataKey="name"
               type="category"
-              tick={{ fontSize: 12 }}
-              stroke="#5a5a72"
-              width={80}
+              tick={{ fontSize: 12, fill: "var(--text-secondary, #a0abc8)" }}
+              tickLine={false}
+              axisLine={false}
+              width={90}
             />
             <Tooltip
-              formatter={(value: number) => formatRupiah(value)}
-              contentStyle={{
-                borderRadius: "8px",
-                border: "1px solid #262636",
-                background: "#1e1e2a",
-              }}
+              formatter={(value: number) => [formatRupiah(value), "Revenue"]}
+              contentStyle={chartStyle}
             />
             <Bar dataKey="revenue" radius={[0, 4, 4, 0]}>
-              {categoryData.map((_, index) => (
-                <Cell
-                  key={`cat-${index}`}
-                  fill={CATEGORY_COLORS[index % CATEGORY_COLORS.length]}
-                />
+              {categoryData.map((entry, index) => (
+                <Cell key={`cat-${index}`} fill={CATEGORY_COLORS[index % CATEGORY_COLORS.length]} />
               ))}
             </Bar>
           </BarChart>
