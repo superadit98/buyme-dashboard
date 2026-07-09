@@ -262,70 +262,7 @@ export default async function OverviewPage() {
         </ul>
       </div>
 
-      {/* Presentasi 5 Menit */}
-      <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm">
-        <h2 className="mb-4 text-lg font-bold text-[var(--text-primary)]">
-          A. Struktur Presentasi 5 Menit
-        </h2>
-        <div className="space-y-3 text-sm text-[var(--text-secondary)]">
-          <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] p-3">
-            <p className="font-medium text-[var(--text-primary)]">Pembuka (30 detik)</p>
-            <p className="text-xs text-[var(--text-muted)]">"Pak Noel, saya akan menyampaikan kondisi operasional supply chain kita bulan ini secara ringkas."</p>
-          </div>
-          <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] p-3">
-            <p className="font-medium text-[var(--text-primary)]">KPI Utama (1 menit)</p>
-            <p className="text-xs text-[var(--text-muted)]">Fulfillment Rate 78% (target 90%), Stock Accuracy 87% (target 95%), Low Stock 8 produk (target ≤5).</p>
-          </div>
-          <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] p-3">
-            <p className="font-medium text-[var(--text-primary)]">Masalah Utama (1 menit)</p>
-            <p className="text-xs text-[var(--text-muted)]">Produk fast-moving sering habis → order cancel → Sales Growth turun 16%.</p>
-          </div>
-          <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] p-3">
-            <p className="font-medium text-[var(--text-primary)]">Rekomendasi (1.5 menit)</p>
-            <p className="text-xs text-[var(--text-muted)]">Restock 5 produk kritis, naikkan minimum stock, aktifkan sinkronisasi stok otomatis.</p>
-          </div>
-          <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] p-3">
-            <p className="font-medium text-[var(--text-primary)]">Penutup (1 menit)</p>
-            <p className="text-xs text-[var(--text-muted)]">"Dengan 3 langkah ini, kita targetkan Fulfillment Rate naik ke 85% bulan depan."</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Cara Menjelaskan KPI */}
-      <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm">
-        <h2 className="mb-4 text-lg font-bold text-[var(--text-primary)]">
-          B. Cara Menjelaskan KPI di Depan Pak Noel
-        </h2>
-        <div className="space-y-3 text-sm text-[var(--text-secondary)]">
-          <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] p-3">
-            <p className="font-medium text-[var(--text-primary)]">Fulfillment Rate 78%</p>
-            <p className="text-xs text-[var(--text-muted)]">"Dari 25 pesanan bulan ini, 19 berhasil diproses. Artinya 6 pesanan gagal — mayoritas karena stok kosong. Target kita 90%."</p>
-          </div>
-          <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] p-3">
-            <p className="font-medium text-[var(--text-primary)]">Low Stock 8 Produk</p>
-            <p className="text-xs text-[var(--text-muted)]">"Ada 8 produk yang stoknya di bawah minimum. Paling kritis: Retinol Serum tinggal 2, Sunscreen Gel tinggal 4. Ini penyebab utama order gagal."</p>
-          </div>
-          <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] p-3">
-            <p className="font-medium text-[var(--text-primary)]">Sales Growth -16%</p>
-            <p className="text-xs text-[var(--text-muted)]">"Penjualan turun 16% dibanding periode sebelumnya. Bukan karena permintaan turun, tapi karena stok habis — jadi kita kehilangan penjualan."</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Slide Outline */}
-      <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm">
-        <h2 className="mb-4 text-lg font-bold text-[var(--text-primary)]">
-          C. Slide Outline (1-6)
-        </h2>
-        <div className="space-y-2 text-sm text-[var(--text-secondary)]">
-          <p><span className="font-bold text-[var(--text-primary)]">Slide 1:</span> Cover — "Supply Chain Dashboard BuyMe"</p>
-          <p><span className="font-bold text-[var(--text-primary)]">Slide 2:</span> KPI Utama — Fulfillment Rate, Stock Accuracy, Low Stock</p>
-          <p><span className="font-bold text-[var(--text-primary)]">Slide 3:</span> KPI Pendukung — Order Processing Time, Sales Growth, On-time Delivery</p>
-          <p><span className="font-bold text-[var(--text-primary)]">Slide 4:</span> Masalah — Produk Low Stock + Dampak ke Sales</p>
-          <p><span className="font-bold text-[var(--text-primary)]">Slide 5:</span> Rekomendasi — 3 Langkah Actionable</p>
-          <p><span className="font-bold text-[var(--text-primary)]">Slide 6:</span> Target Bulan Depan</p>
-        </div>
-      </div>
+      
     </div>
   );
 }
