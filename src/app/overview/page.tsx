@@ -53,8 +53,7 @@ export default async function OverviewPage() {
     : 0;
 
   // Order Processing Time: rata-rata jam dari order ke shipped
-  const shippedOrders = orders.filter((o) => o.status === "Shipped" || o.status === "Delivered");
-  const avgProcessingHours = 18; // simulasi — real dari perbedaan timestamp
+  const avgProcessingHours = 18;
 
   // On-time Delivery
   const deliveredShipments = shipments.filter((s) => s.status === "Delivered");
@@ -67,7 +66,7 @@ export default async function OverviewPage() {
       ? Math.round((onTimeDeliveries / deliveredShipments.length) * 100)
       : 0;
 
-  // Sales Growth MoM (perbandingan 2 periode)
+  // Sales Growth MoM
   const sortedDates = [...new Set(sales.map((s) => s.date))].sort();
   const midPoint = Math.floor(sortedDates.length / 2);
   const firstHalf = sales.filter((s) => sortedDates.indexOf(s.date) < midPoint);
@@ -183,86 +182,6 @@ export default async function OverviewPage() {
         totalRevenue={totalRevenue}
         totalProfit={totalProfit}
       />
-
-      {/* Insight + Rekomendasi */}
-      <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm">
-        <h2 className="mb-4 text-lg font-bold text-[var(--text-primary)]">
-          Insight + Rekomendasi
-        </h2>
-
-        <div className="mb-6">
-          <h3 className="mb-2 text-sm font-semibold text-[var(--text-primary)]">Insight</h3>
-          <ul className="space-y-1.5 text-sm text-[var(--text-secondary)]">
-            <li>• Fulfillment Rate hanya {fulfillmentRate}% (masih jauh dari target 90%).</li>
-            <li>• Ada {lowStockItems} produk Low Stock, terutama Serum Vitamin C, Retinol Serum, dan Sunscreen Gel.</li>
-            <li>• Sales Growth {salesGrowth}% bulan ini salah satunya disebabkan oleh produk-produk yang sering kehabisan stok.</li>
-            <li>• Beberapa produk fast-moving (seperti Serum Vitamin C) terus masuk ke status Low Stock.</li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="mb-2 text-sm font-semibold text-[var(--text-primary)]">Rekomendasi Actionable</h3>
-          <ul className="space-y-1.5 text-sm text-[var(--text-secondary)]">
-            <li>• Segera lakukan restock untuk 5 produk dengan stok paling kritis (Retinol Serum, Niacinamide Serum, Sunscreen Gel, Snail Mucin, dan Brightening Serum).</li>
-            <li>• Naikkan minimum stock untuk produk fast-moving.</li>
-            <li>• Aktifkan fitur sinkronisasi stok otomatis antar Shopee, TikTok Shop, dan Tokopedia agar tidak terjadi overselling.</li>
-            <li>• Pantau produk Low Stock setiap hari melalui dashboard.</li>
-          </ul>
-        </div>
-      </div>
-
-      {/* Struktur Dashboard */}
-      <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm">
-        <h2 className="mb-4 text-lg font-bold text-[var(--text-primary)]">
-          Struktur Dashboard
-        </h2>
-        <div className="space-y-3 text-sm text-[var(--text-secondary)]">
-          <div className="flex items-start gap-4 rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] p-3">
-            <span className="rounded bg-blue-600 px-2 py-0.5 text-xs font-bold text-white">Overview</span>
-            <div>
-              <p className="font-medium text-[var(--text-primary)]">KPI Utama + Sales Growth + Low Stock</p>
-              <p className="text-xs text-[var(--text-muted)]">Fokus Presentasi: Sangat Penting</p>
-            </div>
-          </div>
-          <div className="flex items-start gap-4 rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] p-3">
-            <span className="rounded bg-green-600 px-2 py-0.5 text-xs font-bold text-white">Inventory</span>
-            <div>
-              <p className="font-medium text-[var(--text-primary)]">15 produk + Status + Restock Alert</p>
-              <p className="text-xs text-[var(--text-muted)]">Fokus Presentasi: Sangat Penting</p>
-            </div>
-          </div>
-          <div className="flex items-start gap-4 rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] p-3">
-            <span className="rounded bg-amber-600 px-2 py-0.5 text-xs font-bold text-white">Order Fulfillment</span>
-            <div>
-              <p className="font-medium text-[var(--text-primary)]">Ringkasan order dari 3 marketplace</p>
-              <p className="text-xs text-[var(--text-muted)]">Fokus Presentasi: Penting</p>
-            </div>
-          </div>
-          <div className="flex items-start gap-4 rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] p-3">
-            <span className="rounded bg-purple-600 px-2 py-0.5 text-xs font-bold text-white">Sales Analytics</span>
-            <div>
-              <p className="font-medium text-[var(--text-primary)]">Penjualan per produk & per channel</p>
-              <p className="text-xs text-[var(--text-muted)]">Fokus Presentasi: Pendukung</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Ringkasan Paket */}
-      <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-sm">
-        <h2 className="mb-4 text-lg font-bold text-[var(--text-primary)]">
-          Ringkasan Paket Ini
-        </h2>
-        <ul className="space-y-1.5 text-sm text-[var(--text-secondary)]">
-          <li>✅ Daftar 15 produk skincare yang realistis</li>
-          <li>✅ Data Overview yang masuk akal</li>
-          <li>✅ KPI Framework lengkap (Utama, Pendukung, Tambahan)</li>
-          <li>✅ Insight + Rekomendasi yang bisa langsung dipakai</li>
-          <li>✅ Masalah bisnis yang jelas</li>
-        </ul>
-      </div>
-
-      
     </div>
   );
 }
