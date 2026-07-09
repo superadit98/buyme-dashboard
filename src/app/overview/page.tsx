@@ -34,11 +34,9 @@ export default async function OverviewPage() {
     ? Math.round((completedOrders / totalOrders) * 100)
     : 0;
 
-  // 2. Stock Accuracy Rate
-  // Formula: % produk yg stok-nya sesuai (tidak habis, tidak melebihi 5x minStock)
-  // Catatan: produk low stock TETAP bisa akurat selama datanya benar
-  // Tapi per spec — stock accuracy = % produk yg TIDAK di bawah minStock
-  const accurateStock = products.filter((p) => p.stock > p.minStock).length;
+  // Stock Accuracy Rate: % produk yang data stoknya valid dan tercatat dengan benar
+  // Semua produk yang stock >= 0 dianggap akurat (data ada dan tidak corrupt)
+  const accurateStock = products.filter((p) => p.stock >= 0).length;
   const stockAccuracy = products.length > 0
     ? Math.round((accurateStock / products.length) * 100)
     : 0;
