@@ -55,8 +55,7 @@ export type OrderStatus =
 export type SalesChannel =
   | "Shopee"
   | "Tokopedia"
-  | "TikTok Shop"
-  | "Website";
+  | "TikTok Shop";
 
 export interface Shipment {
   id: string;
