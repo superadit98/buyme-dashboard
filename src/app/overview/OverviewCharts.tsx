@@ -28,10 +28,11 @@ const CATEGORY_COLORS = ["#3b82f6", "#22c55e", "#f59e0b", "#ef4444", "#8b5cf6", 
 
 const chartStyle = {
   borderRadius: "8px",
-  border: "1px solid var(--border, #262636)",
-  background: "var(--bg-secondary, #1e1e2a)",
-  color: "var(--text-primary, #fff)",
+  border: "1px solid #e2e8f0",
+  background: "#ffffff",
+  color: "#1e293b",
   fontSize: "12px",
+  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
 };
 
 export default function OverviewCharts({
@@ -52,15 +53,15 @@ export default function OverviewCharts({
           <p className="mb-4 text-xs text-[var(--text-muted)]">Trend pendapatan harian bulan ini</p>
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={revenueData} barGap={2}>
-              <CartesianGrid strokeDasharray="3 3" stroke="var(--border, #262636)" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
               <XAxis
                 dataKey="date"
-                tick={{ fontSize: 11, fill: "var(--text-muted, #5a5a72)" }}
+                tick={{ fontSize: 11, fill: "#94a3b8" }}
                 tickLine={false}
                 interval="preserveStartEnd"
               />
               <YAxis
-                tick={{ fontSize: 11, fill: "var(--text-muted, #5a5a72)" }}
+                tick={{ fontSize: 11, fill: "#94a3b8" }}
                 tickLine={false}
                 axisLine={false}
                 tickFormatter={(v) =>
@@ -139,10 +140,10 @@ export default function OverviewCharts({
         <p className="mb-4 text-xs text-[var(--text-muted)]">Kontribusi revenue dari setiap kategori skincare</p>
         <ResponsiveContainer width="100%" height={Math.max(200, categoryData.length * 45)}>
           <BarChart data={categoryData} layout="vertical" barSize={22}>
-            <CartesianGrid strokeDasharray="3 3" stroke="var(--border, #262636)" horizontal={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" horizontal={false} />
             <XAxis
               type="number"
-              tick={{ fontSize: 11, fill: "var(--text-muted, #5a5a72)" }}
+              tick={{ fontSize: 11, fill: "#94a3b8" }}
               tickLine={false}
               axisLine={false}
               tickFormatter={(v) =>
@@ -152,7 +153,7 @@ export default function OverviewCharts({
             <YAxis
               dataKey="name"
               type="category"
-              tick={{ fontSize: 12, fill: "var(--text-secondary, #a0abc8)" }}
+              tick={{ fontSize: 12, fill: "#475569" }}
               tickLine={false}
               axisLine={false}
               width={90}

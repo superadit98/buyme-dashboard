@@ -2,25 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ===== DARK THEME (default) ===== */
+/* ===== LIGHT THEME (default, satu-satunya) ===== */
 :root {
-  --bg-primary: #0a0a0f;
-  --bg-secondary: #111118;
-  --bg-card: #16161f;
-  --bg-elevated: #1e1e2a;
-  --border: #262636;
-  --border-light: #1f1f2e;
-  --text-primary: #e4e4ed;
-  --text-secondary: #8b8ba3;
-  --text-muted: #5a5a72;
-  --accent-blue: #3b82f6;
-  --accent-green: #22c55e;
-  --accent-amber: #f59e0b;
-  --accent-red: #ef4444;
-}
-
-/* ===== LIGHT THEME ===== */
-.light-theme {
   --bg-primary: #f8fafc;
   --bg-secondary: #ffffff;
   --bg-card: #ffffff;
@@ -40,7 +23,6 @@ body {
   font-family: Inter, system-ui, -apple-system, sans-serif;
   background: var(--bg-primary);
   color: var(--text-primary);
-  transition: background-color 0.2s, color 0.2s;
 }
 
 /* Scrollbar */
@@ -48,10 +30,3 @@ body {
 ::-webkit-scrollbar-track { background: var(--bg-secondary); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
-
-/* Theme transition */
-*, *::before, *::after {
-  transition-property: background-color, border-color, color;
-  transition-duration: 0.15s;
-  transition-timing-function: ease-in-out;
-}

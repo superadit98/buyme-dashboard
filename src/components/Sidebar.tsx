@@ -11,11 +11,8 @@ import {
   TrendingUp,
   Menu,
   X,
-  Sun,
-  Moon,
 } from "lucide-react";
 import { useState } from "react";
-import { useTheme } from "@/context/ThemeContext";
 
 const NAV_ITEMS = [
   { href: "/overview", label: "Dashboard Overview", icon: LayoutDashboard },
@@ -29,7 +26,6 @@ const NAV_ITEMS = [
 export default function Sidebar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
 
   return (
     <>
@@ -105,22 +101,6 @@ export default function Sidebar() {
             );
           })}
         </nav>
-
-        {/* Theme Toggle */}
-        <div className="absolute bottom-16 left-0 right-0 px-3">
-          <button
-            onClick={toggleTheme}
-            className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors hover:opacity-80"
-            style={{ backgroundColor: "var(--bg-elevated)", color: "var(--text-secondary)" }}
-          >
-            {theme === "dark" ? (
-              <Sun className="h-4 w-4" style={{ color: "var(--accent-amber)" }} />
-            ) : (
-              <Moon className="h-4 w-4" style={{ color: "var(--accent-blue)" }} />
-            )}
-            {theme === "dark" ? "Light Mode" : "Dark Mode"}
-          </button>
-        </div>
 
         {/* Footer info */}
         <div className="absolute bottom-0 left-0 right-0 border-t p-4" style={{ borderColor: "var(--border)" }}>
