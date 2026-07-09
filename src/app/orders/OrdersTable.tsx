@@ -22,7 +22,6 @@ const CHANNEL_COLORS: Record<string, string> = {
   "Shopee": "bg-orange-500/10 text-orange-400",
   "Tokopedia": "bg-green-500/10 text-green-400",
   "TikTok Shop": "bg-pink-500/10 text-pink-400",
-  "Website": "bg-blue-500/10 text-blue-400",
 };
 
 export default function OrdersTable({ orders }: OrdersTableProps) {
@@ -82,7 +81,6 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
               <option value="Shopee">Shopee</option>
               <option value="Tokopedia">Tokopedia</option>
               <option value="TikTok Shop">TikTok Shop</option>
-              <option value="Website">Website</option>
             </select>
           </div>
         </div>

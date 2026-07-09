@@ -5,7 +5,7 @@
  * 
  * Menampilkan:
  * - Status pesanan: Pending, Packed, Shipped, Delivered
- * - Channel penjualan (Shopee, Tokopedia, TikTok Shop, Website)
+ * - Channel penjualan (Shopee, Tokopedia, TikTok Shop)
  * - Search by customer name or order ID
  * - Filter by status
  */

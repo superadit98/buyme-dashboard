@@ -42,7 +42,7 @@ export interface Order {
   address: string;
   paymentMethod: string;
   notes: string;
-  channel: SalesChannel; // Channel penjualan (Shopee, Tokopedia, TikTok Shop, Website)
+  channel: SalesChannel; // Channel penjualan (Shopee, Tokopedia, TikTok Shop)
 }
 
 export type OrderStatus =
@@ -88,7 +88,7 @@ export interface Sale {
   revenue: number;       // Pendapatan kotor (Rp)
   cost: number;          // Modal (Rp)
   profit: number;        // Profit = revenue - cost (Rp)
-  channel: SalesChannel; // Marketplace / Website
+  channel: SalesChannel; // Marketplace
 }
 
 export interface DashboardConfig {

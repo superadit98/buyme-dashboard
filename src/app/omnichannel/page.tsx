@@ -7,13 +7,12 @@
  * - Shopee
  * - Tokopedia
  * - TikTok Shop
- * - Website
  * 
  * Data diambil dari Google Sheets CSV via fetchData.
  */
 
 import { getOrders, getSales, formatRupiah, formatNumber } from "@/lib/fetchData";
-import { Store, ShoppingBag, Globe, Video, ExternalLink } from "lucide-react";
+import { Store, ShoppingBag, Video, ExternalLink } from "lucide-react";
 import OmnichannelCharts from "./OmnichannelCharts";
 
 export const dynamic = "force-dynamic";
@@ -24,14 +23,13 @@ const CHANNEL_CONFIG: Record<string, { icon: typeof Store; color: string; bgColo
   "Shopee": { icon: ShoppingBag, color: "text-orange-400", bgColor: "bg-orange-500/10" },
   "Tokopedia": { icon: Store, color: "text-green-400", bgColor: "bg-green-500/10" },
   "TikTok Shop": { icon: Video, color: "text-pink-400", bgColor: "bg-pink-500/10" },
-  "Website": { icon: Globe, color: "text-blue-400", bgColor: "bg-blue-500/10" },
 };
 
 export default async function OmnichannelPage() {
   const [orders, sales] = await Promise.all([getOrders(), getSales()]);
 
   // Hitung data per channel
-  const channels = ["Shopee", "Tokopedia", "TikTok Shop", "Website"];
+  const channels = ["Shopee", "Tokopedia", "TikTok Shop"];
 
   const channelStats = channels.map((ch) => {
     const chOrders = orders.filter((o) => o.channel === ch);
