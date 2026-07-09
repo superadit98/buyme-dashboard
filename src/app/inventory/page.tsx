@@ -29,10 +29,20 @@ export default async function InventoryPage() {
     totalValue: products.reduce((sum, p) => sum + p.price * p.stock, 0),
   };
 
-  // Restock alerts — produk yang stock <= minStock
+  // Restock alerts — produk yang stock <= minStock, dengan urgensi
   const restockAlerts = products
     .filter((p) => p.stock <= p.minStock)
-    .sort((a, b) => a.stock - b.stock);
+    .sort((a, b) => a.stock - b.stock)
+    .map((p) => ({
+      ...p,
+      urgensi: p.stock === 0
+        ? "Kritis"
+        : p.stock <= Math.ceil(p.minStock * 0.3)
+          ? "Tinggi"
+          : p.stock <= Math.ceil(p.minStock * 0.6)
+            ? "Sedang"
+            : "Rendah",
+    }));
 
   // Top selling products by category
   const categorySales = sales.reduce<Record<string, { quantity: number; revenue: number }>>(
@@ -85,38 +95,58 @@ export default async function InventoryPage() {
 
       {/* Restock Alerts */}
       {restockAlerts.length > 0 && (
-        <div className="rounded-xl border border-amber-900/30 bg-[var(--bg-card)] p-6 shadow-sm">
+        <div className="rounded-xl border-2 border-red-700/50 bg-[var(--bg-card)] p-6 shadow-sm">
           <div className="mb-4 flex items-center gap-2">
-            <AlertTriangle className="h-5 w-5 text-amber-400" />
-            <h2 className="text-lg font-semibold text-[var(--text-primary)]">Restock Alerts</h2>
-            <span className="ml-2 rounded-full bg-amber-500/10 px-2 py-0.5 text-xs font-medium text-amber-400">
+            <AlertTriangle className="h-5 w-5 text-red-400" />
+            <h2 className="text-lg font-semibold text-[var(--text-primary)]">⚠️ Restock Alerts</h2>
+            <span className="ml-2 rounded-full bg-red-500/15 px-2 py-0.5 text-xs font-semibold text-red-400 border border-red-500/30">
               {restockAlerts.length} produk perlu restock
             </span>
           </div>
-          <div className="space-y-2">
-            {restockAlerts.map((p) => (
-              <div
-                key={p.id}
-                className="flex items-center justify-between rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] px-4 py-3"
-              >
-                <div className="flex items-center gap-3">
-                  <span className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold ${
-                    p.stock === 0
-                      ? "bg-red-500/20 text-red-400"
-                      : "bg-amber-500/20 text-amber-400"
-                  }`}>
-                    {p.stock}
-                  </span>
-                  <div>
-                    <span className="font-medium text-[var(--text-primary)]">{p.name}</span>
-                    <span className="ml-2 text-xs text-[var(--text-muted)]">({p.sku})</span>
-                  </div>
-                </div>
-                <div className="text-sm text-[var(--text-muted)]">
-                  Min: {p.minStock} {p.unit}
-                </div>
-              </div>
-            ))}
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm">
+              <thead>
+                <tr className="border-b border-[var(--border)] bg-[var(--bg-secondary)]">
+                  <th className="px-4 py-2 font-medium text-[var(--text-secondary)]">Produk</th>
+                  <th className="px-4 py-2 text-right font-medium text-[var(--text-secondary)]">Stok</th>
+                  <th className="px-4 py-2 text-right font-medium text-[var(--text-secondary)]">Min. Stok</th>
+                  <th className="px-4 py-2 text-center font-medium text-[var(--text-secondary)]">Urgensi</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#262636]">
+                {restockAlerts.map((p) => {
+                  const urgensiStyle =
+                    p.urgensi === "Kritis"
+                      ? "bg-red-500/15 text-red-400 border border-red-500/30"
+                      : p.urgensi === "Tinggi"
+                      ? "bg-orange-500/15 text-orange-400 border border-orange-500/30"
+                      : p.urgensi === "Sedang"
+                      ? "bg-amber-500/15 text-amber-400 border border-amber-500/30"
+                      : "bg-yellow-500/15 text-yellow-400 border border-yellow-500/30";
+                  return (
+                    <tr key={p.id} className="hover:bg-[var(--bg-elevated)]">
+                      <td className="px-4 py-3">
+                        <div className="font-medium text-[var(--text-primary)]">{p.name}</div>
+                        <div className="text-xs text-[var(--text-muted)]">{p.sku}</div>
+                      </td>
+                      <td className={`whitespace-nowrap px-4 py-3 text-right font-bold ${
+                        p.stock === 0 ? "text-red-400" : "text-amber-400"
+                      }`}>
+                        {p.stock} {p.unit}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 text-right text-[var(--text-muted)]">
+                        {p.minStock} {p.unit}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 text-center">
+                        <span className={`inline-flex rounded-md px-2 py-0.5 text-xs font-semibold ${urgensiStyle}`}>
+                          {p.urgensi}
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         </div>
       )}
